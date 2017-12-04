@@ -90,7 +90,7 @@
      },
 
      //function that pushes event to the full calendar
- events : $scope.myevents = function(start, end, timezone, callback) 
+ events : $scope.myevents = function(start, end, timezone, callback) {
      UpcomingeventsService.query().$promise // call service to get the data for the calendar
          .then(function(data) {
              var events = [];
