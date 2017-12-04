@@ -1,0 +1,232 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<section ng-controller="UpcomingeventsListController">
+  <div class="container-fluid">
+    <div class="page-header text-center">
+      <h1 class="heading-page ">Upcoming Events</h1>
+      <button class="btn contact-submit-button" ng-click="allEvents()">See all events</button>
+    </div>
+    <div ng-hide="!todayList.length">
+      <div class="page-header text-center">
+        <h2 class="heading-page " ng-click="tEvents()">Today's events</h2>
+        <button class="btn contact-submit-button" ng-click="tEvents()">See all of today's events</button>
+      </div>
+
+      <!--<div class="list-group">-->
+      <!--<a ng-repeat="upcomingevent in todayList"-->
+      <!--ui-sref="upcomingevents.view({ upcomingeventId: upcomingevent._id })"-->
+      <!--class="list-group-item">-->
+      <!--<small class="list-group-item-text">-->
+      <!--Posted on-->
+      <!--<span ng-bind="upcomingevent.created | date:'mediumDate'"></span>-->
+      <!--by-->
+      <!--<span ng-if="upcomingevent.user" ng-bind="upcomingevent.user.displayName"></span>-->
+      <!--<span ng-if="!upcomingevent.user">Deleted User</span>-->
+      <!--</small>-->
+      <!--<h4 class="list-group-item-heading" ng-bind="upcomingevent.name"></h4>-->
+
+      <div class="row" class="center-div">
+        <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-0 col-sm-offset-0 col-xs-offset-0">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2" ng-repeat="entry in todayList"
+               ui-sref="upcomingevents.view({ upcomingeventId: entry._id })">
+            <div class="thumbnail">
+
+              <div class="thumbnail-image">
+                <img ng-src="{{entry.imageURLList[0]}}" alt="eventPicture" class="thumbnail-image-size">
+              </div>
+
+              <div class="row">
+                <!--changed from col-sm-9 to col-sm-8-->
+                <div class="col-sm-8 col-xs-8">
+                  <h4 class="thumbnail-title">{{entry.name}}</h4>
+                  <p class="thumbnail-desc-trial2"> {{entry.description}}</p>
+                  <div class="row-fluid">
+                    <p class="thumbnail-subtitle"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{entry.likes}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                  <h4 class="thumbnail-description"><i class="fa fa-calendar" aria-hidden="true"></i>{{entry.eventDuration.startDate
+                    | date: ' MMM d'}}</h4>
+                  <h4 class="thumbnail-description"><i class="fa fa-clock-o" aria-hidden="true"></i>{{entry.eventDuration.startDate
+                    | date: ' h:mm a'}}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--first card attempt on upcoming events-->
+      <!--<div class="row col-lg-offset-2">-->
+      <!--<div class="col-md-3" ng-repeat="entry in todayList" ui-sref="upcomingevents.view({ upcomingeventId: entry._id })">-->
+
+
+      <!--&lt;!&ndash;testing this as of 8:58PM on tuesday night&ndash;&gt;-->
+
+      <!--<div class="thumbnail">-->
+      <!--&lt;!&ndash;/* Added by Logan on 11/07 at 8:52PM */&ndash;&gt;-->
+      <!--<div class="thumbnail-image">-->
+      <!--<img ng-src="{{entry.imageURLList[0]}}" alt="eventPicture" class="thumbnail-image-size">-->
+      <!--</div>-->
+      <!--&lt;!&ndash;/* End by Logan on 11/07 at 8:52PM */&ndash;&gt;-->
+      <!--<div class="row">-->
+      <!--&lt;!&ndash;changed from col-sm-9 to col-sm-8&ndash;&gt;-->
+      <!--<div class=col-sm-8>-->
+      <!--<i class="fa fa-clock-o" aria-hidden="true"></i>-->
+      <!--<h4 class="thumbnail-title">{{entry.name}}</h4>-->
+      <!--<p class="thumbnail-event-description"> {{entry.description}}</p>-->
+      <!--&lt;!&ndash;<p class="thumbnail-subtitle">Likes {{entry.likes}}</p>&ndash;&gt;-->
+      <!--<p class="thumbnail-subtitle">{{entry.likes}}</p>-->
+      <!--</div>-->
+      <!--<div class="col-sm-3">-->
+      <!--<h4 class="thumbnail-description">{{entry.eventDuration.startDate | date: 'MMM d'}}</h4>-->
+      <!--<h4 class="thumbnail-description">{{entry.eventDuration.startDate | date: 'h: mm a'}}</h4>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+
+
+      <!--&lt;!&ndash;</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--<div class="alert alert-warning text-center" ng-if="upcomingevents.$resolved && !upcomingevents.length">-->
+      <!--No upcoming events yet, why don't you <a ui-sref="upcomingevents.create">create one</a>?-->
+
+      <!--</div>-->
+      <!--</div>-->
+
+      <div ng-hide="!weekList.length">
+        <div class="page-header text-center">
+          <h2 class="heading-page" ng-click="wEvents()">This week's events</h2>
+          <button class="btn contact-submit-button" ng-click="wEvents()">See all of this week's events</button>
+        </div>
+
+        <div class="row" class="center-div">
+          <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-0 col-sm-offset-0 col-xs-offset-0">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2" ng-repeat="entry in weekList"
+                 ui-sref="upcomingevents.view({ upcomingeventId: entry._id })">
+              <div class="thumbnail">
+
+                <div class="thumbnail-image">
+                  <img ng-src="{{entry.imageURLList[0]}}" alt="eventPicture" class="thumbnail-image-size">
+                </div>
+
+                <div class="row">
+                  <!--changed from col-sm-9 to col-sm-8-->
+                  <div class="col-sm-8 col-xs-8">
+                    <h4 class="thumbnail-title">{{entry.name}}</h4>
+                    <p class="thumbnail-desc-trial2"> {{entry.description}}</p>
+                    <div class="row-fluid">
+                      <p class="thumbnail-subtitle"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{entry.likes}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-xs-4">
+                    <h4 class="thumbnail-description"><i class="fa fa-calendar" aria-hidden="true"></i>{{entry.eventDuration.startDate
+                      | date: ' MMM d'}}</h4>
+                    <h4 class="thumbnail-description"><i class="fa fa-clock-o" aria-hidden="true"></i>{{entry.eventDuration.startDate
+                      | date: ' h:mm a'}}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<div class="list-group">-->
+        <!--<a ng-repeat="upcomingevent in weekList"-->
+        <!--ui-sref="upcomingevents.view({ upcomingeventId: upcomingevent._id })"-->
+        <!--class="list-group-item">-->
+        <!--<small class="list-group-item-text">-->
+        <!--Posted on-->
+        <!--<span ng-bind="upcomingevent.created | date:'mediumDate'"></span>-->
+        <!--by-->
+        <!--<span ng-if="upcomingevent.user" ng-bind="upcomingevent.user.displayName"></span>-->
+        <!--<span ng-if="!upcomingevent.user">Deleted User</span>-->
+        <!--</small>-->
+        <!--<h4 class="list-group-item-heading" ng-bind="upcomingevent.name"></h4>-->
+        <!--</a>-->
+        <!--</div>-->
+      </div>
+      <div ng-hide="!monthList.length">
+        <div class="page-header text-center">
+          <h2 class="heading-page" ng-click="mEvents()">This month's events</h2>
+          <button class="btn contact-submit-button" ng-click="mEvents()">See all of this month's events</button>
+        </div>
+
+        <div class="row" class="center-div">
+          <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-0 col-sm-offset-0 col-xs-offset-0">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2" ng-repeat="entry in monthList"
+                 ui-sref="upcomingevents.view({ upcomingeventId: entry._id })">
+              <div class="thumbnail">
+
+                <div class="thumbnail-image">
+                  <img ng-src="{{entry.imageURLList[0]}}" alt="eventPicture" class="thumbnail-image-size">
+                </div>
+
+                <div class="row">
+                  <!--changed from col-sm-9 to col-sm-8-->
+                  <div class="col-sm-8 col-xs-8">
+                    <h4 class="thumbnail-title">{{entry.name}}</h4>
+                    <p class="thumbnail-desc-trial2"> {{entry.description}}</p>
+                    <div class="row-fluid">
+                      <p class="thumbnail-subtitle"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{entry.likes}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-xs-4">
+                    <h4 class="thumbnail-description"><i class="fa fa-calendar" aria-hidden="true"></i>{{entry.eventDuration.startDate
+                      | date: ' MMM d'}}</h4>
+                    <h4 class="thumbnail-description"><i class="fa fa-clock-o" aria-hidden="true"></i>{{entry.eventDuration.startDate
+                      | date: ' h:mm a'}}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<div class="list-group">-->
+        <!--<a ng-repeat="upcomingevent in monthList"-->
+        <!--ui-sref="upcomingevents.view({ upcomingeventId: upcomingevent._id })"-->
+        <!--class="list-group-item">-->
+        <!--<small class="list-group-item-text">-->
+        <!--Posted on-->
+        <!--<span ng-bind="upcomingevent.created | date:'mediumDate'"></span>-->
+        <!--by-->
+        <!--<span ng-if="upcomingevent.user" ng-bind="upcomingevent.user.displayName"></span>-->
+        <!--<span ng-if="!upcomingevent.user">Deleted User</span>-->
+        <!--</small>-->
+        <!--<h4 class="list-group-item-heading" ng-bind="upcomingevent.name"></h4>-->
+        <!--</a>-->
+        <!--</div>-->
+      </div>
+      <div class="alert alert-warning text-center" ng-if="upcomingevents.$resolved && !upcomingevents.length">
+        No upcoming events yet, why don't you <a ui-sref="upcomingevents.create">create one</a>?
+      </div>
+      <!--ng-show="((upcomingevent.eventDuration.endDate.toString()).substring(0, 10) >= (today | date:'yyyy-MM-dd'))"-->
+      <!--<div ng-hide="!upcomingeventList.length">-->
+      <!--<div class="page-header">-->
+      <!--<h2 class="heading-page center-text">Upcoming Events</h2>-->
+      <!--</div>-->
+      <!--<div class="list-group">-->
+      <!--<a ng-repeat="upcomingevent in upcomingevents"-->
+      <!--ui-sref="upcomingevents.view({ upcomingeventId: upcomingevent._id })"-->
+      <!--class="list-group-item">-->
+      <!--<small class="list-group-item-text">-->
+      <!--Posted on-->
+      <!--<span ng-bind="upcomingevent.created | date:'mediumDate'"></span>-->
+      <!--by-->
+      <!--<span ng-if="upcomingevent.user" ng-bind="upcomingevent.user.displayName"></span>-->
+      <!--<span ng-if="!upcomingevent.user">Deleted User</span>-->
+      <!--</small>-->
+      <!--<h4 class="list-group-item-heading" ng-bind="upcomingevent.name"></h4>-->
+      <!--</a>-->
+      <!--</div>-->
+      <!--<div class="alert alert-warning text-center" ng-if="vm.upcomingevents.$resolved && !upcomingevents.length">-->
+      <!--No upcoming events yet, why don't you <a ui-sref="upcomingevents.create">create one</a>?-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+  </div>
+</section>

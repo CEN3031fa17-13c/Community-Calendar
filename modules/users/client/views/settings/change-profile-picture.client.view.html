@@ -1,0 +1,40 @@
+<section ng-controller="ChangeProfilePictureController">
+  <div class=" container-fluid">
+    <div class="row visible-sm visible-xs text-center">
+      <div class="col-lg-12">
+        <h3 class="settings-title" >Change Profile Picture</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-offset-1 col-md-8">
+        <form class="signin form-horizontal">
+          <fieldset>
+            <div class="form-group text-center">
+
+              <img ng-src="{{display}}" alt = "{{user.displayName}}" class="img-thumbnail user-profile-picture">
+            </div>
+            <div class="text-center form-group">
+          <span class="btn contact-submit-button-inverse btn-file">
+              Select Image <input name="file" type="file" accept="image/*" file />
+          </span>
+              <h2> {{file.name}}</h2>
+            </div>
+            <div class="text-center form-group" >
+              <button class = "btn contact-submit-button" ng-click="s3upload()">Upload</button>
+            </div>
+            <div ng-show="success" class="text-center text-success">
+              <strong>Profile Picture Changed Successfully</strong>
+            </div>
+            <div ng-show="sizecheck === 1" class = "text-center text-danger">
+              <strong>File size is too big!</strong>
+            </div>
+            <div ng-show="error" class="text-center text-danger">
+              <strong ng-bind="error"></strong>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</section>

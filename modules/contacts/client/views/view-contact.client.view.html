@@ -1,0 +1,77 @@
+<!--guangyu: contact view page-->
+<section ng-controller="ContactsController">
+  <div class="container-fluid">
+    <div class="row">
+      <div class=" col-lg-12 text-center">
+        <h1 class="heading-page">Contact Community Calendar</h1>
+      </div>
+    </div>
+    <div class="row about-middle">
+      <div class="col-lg-12 text-center">
+        <div class="jumbotron">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="contact-description">Have a question? Want to get in touch with us? <br/> Fill out the form
+                below</h4>
+            </div>
+          </div>
+          <form class="contact-jumbotron row" name="userForm" ng-submit="contactform(userForm.$valid)" novalidate
+                autocomplete="off">
+            <div class="col-md-offset-3 col-md-6">
+              <div class="form-group" show-errors>
+                <div class="row">
+                  <div class="col-md-12">
+                    <input type="text" id="firstName" name="firstName" class="contact-form-bar"
+                           ng-model="credentials.firstName" placeholder="Your Name" required><br>
+                    <div ng-messages="userForm.firstName.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">First name is required.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" show-errors>
+                <div class="row">
+                  <div class="col-md-12">
+                    <input type="email" id="email" name="email" class="contact-form-bar" ng-model="credentials.email"
+                           placeholder="Email" required><br>
+                    <div ng-messages="userForm.email.$error" role="alert">
+                      <p class="help-block error-text contact-form-bar" ng-message="required">Email address is
+                        required.</p>
+                      <p class="help-block error-text contact-form-bar" ng-message="email">Email address is invalid.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input id="subject" type="text" placeholder="Subject" class="contact-form-bar">
+                </div>
+              </div>
+              <div class="form-group" show-errors>
+                <div class="row">
+                  <div class="col-md-12">
+                <textarea rows="7" class="contact-form-message" id="message" name="message" class="form-control"
+                          ng-model="credentials.message" required>
+                 </textarea><br>
+                    <div ng-messages="userForm.message.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Message is required.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input class="contact-submit-button" type="submit" value="Submit">
+                </div>
+              </div>
+              <div ng-show="error" class="text-center text-danger">
+                <strong ng-bind="error"></strong>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end of contact view page-->

@@ -1,0 +1,55 @@
+<section>
+  <div class="container-fluid">
+    <div class="page-header text-center">
+      <h1 class="heading-page">User</h1>
+    </div>
+    <div class="col-md-offset-3 col-md-6">
+      <h1 class="settings-title text-center" ng-bind="user.username"></h1>
+      <form name="userForm" ng-submit="update(userForm.$valid)" novalidate>
+        <fieldset>
+          <div class="form-group" show-errors>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" class="form-control new-event-form-bar" ng-model="user.firstName"
+                   placeholder="First Name" required/>
+            <div ng-messages="userForm.firstName.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">First name is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" class="form-control new-event-form-bar" ng-model="user.lastName"
+                   placeholder="Last Name" required/>
+            <div ng-messages="userForm.lastName.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Last name is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="roles">Roles</label>
+            <div class="controls">
+              <input class="form-control new-event-form-bar" type="text" name="roles" ng-model="user.roles" id="roles" ng-list required/>
+              <div ng-messages="userForm.roles.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">At least one role is required.</p>
+              </div>
+            </div>
+          </div>
+
+          <!--<label>SuperUser: {{user.superUser}}</label>-->
+
+          <!--<div class="form-group">-->
+          <!--<label for="superUser">Super User</label>-->
+          <!--<div>-->
+          <!--<input type="text" name="superUser" ng-model="user.superUser" id="superUser">-->
+          <!--</div>-->
+          <!--</div>-->
+
+          <div class="form-group text-center">
+            <input type="submit" value="Update" class="btn contact-submit-button">
+          </div>
+          <div ng-show="error" class="text-danger">
+            <strong ng-bind="error"></strong>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>

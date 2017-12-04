@@ -1,0 +1,72 @@
+<section ng-controller="EditProfileController">
+  <div class="container-fluid">
+    <div class="row visible-sm visible-xs">
+      <div class="col-lg-12">
+        <h3 class="settings-title" >Edit Profile</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-10 col-md-offset-1 col-md-7">
+        <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate
+              autocomplete="off">
+          <fieldset>
+            <div class="form-group" show-errors>
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" class="new-event-form-bar" ng-model="user.firstName"
+                     placeholder="First Name" required>
+              <div ng-messages="userForm.firstName.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">First name is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" class="new-event-form-bar" ng-model="user.lastName"
+                     placeholder="Last Name" required>
+              <div ng-messages="userForm.lastName.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Last name is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" class="new-event-form-bar" ng-model="user.email" placeholder="Email"
+                     lowercase required>
+              <div ng-messages="userForm.email.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Email address is required.</p>
+                <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+              </div>
+
+              <div class="form-group" show-errors>
+                <label for="phone_number">Phone Number</label>
+                <input type="number" id="phone_number" name="phone_number" class="new-event-form-bar"
+                       ng-model="user.phone_number" placeholder="Phone Number" ng-pattern="/^[1-9][0-9]{9}$/" required>
+                <div ng-messages="userForm.phone_number.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Phone Number is required.</p>
+                  <p class="help-block error-text" ng-message="email">Phone Number is invalid.</p>
+                </div>
+                <span ng-show="userForm.phone_number.$error.pattern">Please, enter valid number!</span>
+              </div>
+
+              <div class="form-group" show-errors>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="new-event-form-bar" ng-model="user.username"
+                       placeholder="Username" lowercase required>
+                <div ng-messages="userForm.username.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Username is required.</p>
+                </div>
+              </div>
+              <div class="text-center form-group">
+                <button type="submit" class="btn contact-submit-button">Save Profile</button>
+              </div>
+              <div ng-show="success" class="text-center text-success">
+                <strong>Profile Saved Successfully</strong>
+              </div>
+              <div ng-show="error" class="text-center text-danger">
+                <strong ng-bind="error"></strong>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="settings-title" ng-bind="user.username"></h1>
+      </div>
+    </div>
+    <form name="userForm" ng-submit="update(userForm.$valid)" novalidate>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="form-group text-center">
+              <img ng-src="{{user.profileImageURL}}" alt="{{user.displayName}}"
+                   class="img-thumbnail user-profile-picture">
+            </div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-3"><strong>First Name</strong></div>
+            <div class="col-md-6" ng-bind="user.firstName"></div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-3"><strong>Last Name</strong></div>
+            <div class="col-md-6" ng-bind="user.lastName"></div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-3"><strong>Email</strong></div>
+            <div class="col-md-6" ng-bind="user.email"></div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-3"><strong>Phone Number</strong></div>
+            <div class="col-md-6" ng-bind="user.phone_number"></div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-3"><strong>Provider</strong></div>
+            <div class="col-md-6" ng-bind="user.provider"></div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-3"><strong>Created</strong></div>
+            <div class="col-md-6" ng-bind="user.created"></div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-3"><strong>Actual Roles</strong></div>
+            <div class="col-md-6" ng-bind="user.roles"></div>
+          </div>
+          <br>
+
+          <!--<div ng-init="fillFields()">-->
+          <div>
+            <label>Upgrade user privilege?</label>
+            <br/>
+            <!--<input type="checkbox" ng-model="checkbox.value" ng-click="setSuperUser()">-->
+            <!--</label>-->
+            <label>
+              <input type="radio" ng-model="answer.decision" value="Accept Request">
+              Accept Request
+            </label>
+            <br/>
+            <label>
+              <input type="radio" ng-model="answer.decision" value="Decline Request">
+              Decline Request
+            </label>
+            <br/>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" value="Accept Request" class="btn btn-default">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

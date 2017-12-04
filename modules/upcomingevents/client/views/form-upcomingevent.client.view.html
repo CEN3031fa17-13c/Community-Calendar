@@ -1,0 +1,304 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="heading-page text-center">
+          <h1>{{vm.upcomingevent._id ? 'Edit Upcomingevent' : 'New Event'}}</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row jumbotron" style="margin-left: 2%; margin-right: 2% ">
+      <div class="col-md-offset-2 col-md-5 margins-event-form">
+        <form name="vm.form.upcomingeventForm" class="form-horizontal"
+              ng-submit="vm.save(vm.form.upcomingeventForm.$valid)"
+              novalidate>
+          <fieldset>
+            <div class="form-group" show-errors>
+              <div class="row">
+                <div class="col-lg-12">
+                  <input name="name" type="text" ng-model="vm.upcomingevent.name" id="name"
+                         class="new-event-form-bar"
+                         placeholder="Event Name" required>
+                  <div ng-messages="vm.form.upcomingeventForm.name.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Event Name is required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" show-errors>
+              <div class="row">
+                <div class="col-lg-12">
+                  <input name="organization" type="text" ng-model="vm.upcomingevent.organization" id="organization"
+                         class="new-event-form-bar" placeholder="Organization" required>
+                  <div ng-messages="vm.form.upcomingeventForm.organization.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Organization is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" show-errors>
+              <div class="row">
+                <div class="col-lg-12">
+                  <input name="location" type="text" ng-model="vm.upcomingevent.location" id="location"
+                         class="new-event-form-bar"
+                         placeholder="Event Address" required>
+                  <div ng-messages="vm.form.upcomingeventForm.location.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Location is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Start Date Object-->
+            <div class="form-group" show-errors ng-init="fillFields()">
+              <div class="row">
+                <div class="col-xs-6">
+                  <input name="startDate" type="date" ng-model="eventDuration.startDate.value" id="startDate"
+                         class="new-event-form-bar-date" placeholder="yyyy-MM-dd" min={{minStartDate}} required>
+                  <div role="alert">
+                    <span class="error" ng-show="vm.input.$error.date">Not a valid date!</span>
+                  </div>
+                  <div ng-messages="vm.form.upcomingeventForm.eventDuration.startDate.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Start date is required.</p>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <input name="startTime" type="time" ng-model="eventDuration.startDate.value" id="startTime"
+                         class="new-event-form-bar-date " placeholder="HH:mm" required>
+                </div>
+              </div>
+            </div>
+
+            <!--Check box to Add end time. If end time is not selected, we assume same date but an hour later.-->
+            <div>
+              <label>Add end time?
+                <input type="checkbox" ng-model="checkbox.value1" ng-init="checkbox.value1=false">
+              </label>
+            </div>
+
+            <div ng-if="checkbox.value1" class="form-group" show-errors>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input name="endDate" type="date" ng-model="eventDuration.endDate.value" id="endDate"
+                         class="new-event-form-bar-date" ng-click="fillMinDates()"
+                         placeholder="yyyy-MM-dd" min="{{minEndDate}}" required>
+                  <div role="alert">
+                    <span class="error" ng-show="vm.input.$error.date">Not a valid date!</span>
+                  </div>
+                  <div ng-messages="vm.form.upcomingeventForm.eventDuration.endDate.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Upcoming event end date is required.</p>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <input name="endTime" type="time" ng-model="eventDuration.endDate.value" id="endTime"
+                         class="new-event-form-bar-date"
+                         placeholder="HH:mm:ss" required>
+                </div>
+              </div>
+            </div>
+            <!--End Date Object-->
+
+            <div class="form-group" show-errors>
+              <div class="row">
+                <div class="col-lg-12">
+                  <select ng-model="vm.upcomingevent.category" class="new-event-form-bar input-sm" id="category" ng-change = "changeCat()"
+                          name="category"
+                          required>
+                    <option value="" disabled="" selected="">Select Category</option>
+                    <option ng-repeat="cat in categories" value="{{ cat }}">
+                      {{cat}}
+                    </option>
+                  </select>
+                  <div ng-messages="vm.form.upcomingeventForm.category.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Upcoming event category is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" show-errors>
+              <div class="row">
+                <div class="col-lg-12">
+                  <select ng-model="vm.upcomingevent.dress_code" class="new-event-form-bar input-sm" id="dress_code"
+                          name="dress_code"
+                          required>
+                    <option value="" disabled="" selected="">Select Dress Code</option>
+                    <option ng-repeat="dress_code in dress_codes" value="{{ dress_code }}">
+                      {{dress_code}}
+                    </option>
+                  </select>
+                  <div ng-messages="vm.form.upcomingeventForm.dress_code.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Upcoming event dress code is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" show-errors>
+              <div class="row">
+                <div class="col-lg-12">
+                  <textarea name="description" type="text" ng-model="vm.upcomingevent.description" id="description"
+                         class="form-control new-event-form-bar" rows="8" maxlength="500" placeholder="Description" required>
+                  </textarea>
+                  <label ng-if="vm.upcomingevent.description">{{vm.upcomingevent.description.length}}/500</label>
+                  <div ng-messages="vm.form.upcomingeventForm.description.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Upcoming event description is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Start Image: allows 1 for Simple User and 3 for Super User or Admin-->
+            <div ng-hide="vm.upcomingevent._id">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th width="50%">Name</th>
+                  <th ng-show="uploader.isHTML5">Size</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--<label>Queue length: {{uploader.queue.length}}</label>-->
+                <tr ng-repeat="item in uploader.queue">
+                  <td>
+                    <strong>{{ item.file.name }}</strong>
+
+                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+                  </td>
+                  <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                </tr>
+                </tbody>
+              </table>
+
+              <div class="text-center form-group">
+            <div class="btn btn-default btn-file"
+                  ng-show="(((vm.authentication.user.roles == 'admin' || vm.authentication.user.superUser) && (uploader.queue.length < 3)) ||
+                  (vm.authentication.user.roles != 'admin' && !vm.authentication.user.superUser && uploader.queue.length < 1))">Select Image<input id="fileuploader" type="file" accept="image/*" nv-file-select uploader="uploader">
+            </div>
+              </div>
+              <div ng-show="success" class="text-center text-success">
+                <strong>Event Picture Changed Successfully</strong>
+              </div>
+              <div ng-show="error" class="text-center text-danger">
+                <strong ng-bind="error"></strong>
+              </div>
+            </div>
+            <!--End Image Upload-->
+
+            <!-- Video allows when is a Super User or Admin -->
+            <div class="form-group" show-errors ng-show="vm.authentication.user.roles == 'admin' || vm.authentication.user.superUser">
+              <div class="row">
+                <div class="col-lg-12">
+                  <input name="videoURL" type="text" ng-model="vm.upcomingevent.videoURL" id="videoURL"
+                         class="form-control new-event-form-bar"
+                         placeholder="Video URL">
+                  <!-- <div ng-messages="vm.form.upcomingeventForm.videoURL.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Upcoming event video is required.</p>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <!-- Video -->
+
+            <!-- Start Additional Fields-->
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-2 col-xs-offset-4">
+                  <button type="submit" class="contact-submit-button">
+                    {{vm.upcomingevent._id ? 'Update' : 'Create'}}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div ng-show="vm.error" class="text-danger">
+              <strong ng-bind="vm.error"></strong>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <!-- End Additional Fields-->
+      <!--
+      .
+      .
+      .
+      .
+      .
+      .
+      .
+      -->
+      <!--STARTING THE NEW CARD PREVIEW-->
+
+          <div class="col-md-4 visible-md visible-lg">
+            <div class="thumbnail">
+              <div class="thumbnail-image">
+                <img ng-src="modules/upcomingevents/client/img/eventImages/placeholders/{{previewImg}}.jpg" alt="eventPicture" class="thumbnail-image-size">
+              </div>
+
+              <div class="row">
+                <!--changed from col-sm-9 to col-sm-8-->
+                <div class="col-sm-8 col-xs-8">
+                  <h4 class="thumbnail-title">{{vm.upcomingevent.name}}</h4>
+                  <p class="thumbnail-desc-trial2"> {{vm.upcomingevent.description}}</p>
+                  <div class="row" style="height: 48px">
+                    <div class="col-lg-12">
+                      <p class="thumbnail-subtitle"><i class="fa fa-thumbs-up" aria-hidden="true"></i>0</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                  <h4 class="thumbnail-description"><i class="fa fa-calendar" aria-hidden="true"></i>{{eventDuration.startDate.value
+                    | date: ' MMM d'}}</h4>
+                  <h4 class="thumbnail-description"><i class="fa fa-clock-o" aria-hidden="true"></i>{{eventDuration.startDate.value
+                    | date: ' h:mm a'}}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--
+      .
+      .
+      .
+      .
+      .
+      ENDING THE NEW CARD PREVIEW
+      .
+      .
+      .
+      .
+      -->
+
+      <!---->
+      <!--&lt;!&ndash;Start Card Preview&ndash;&gt;-->
+      <!--<div class="col-lg-3 col-lg-offset-1">-->
+        <!--<div class="thumbnail ">-->
+          <!--<img ng-hide="!vm.upcomingevent.imageURLList.length" ng-src="{{vm.upcomingevent.imageURLList[0]}}"-->
+               <!--class="img-thumbnail add-event-picture">-->
+          <!--<img ng-show="!vm.upcomingevent.imageURLList.length" ng-src="{{imageURLList[0]}}"-->
+               <!--class="img-thumbnail add-event-picture">-->
+          <!--<div class="row">-->
+            <!--<div class="col-sm-9">-->
+              <!--<h4 class="thumbnail-title" ng-init="name">{{vm.upcomingevent.name}}</h4>-->
+              <!--<p class="thumbnail-subtitle">{{vm.upcomingevent.organization}} description</p>-->
+              <!--<p class="thumbnail-subtitle">{{vm.upcomingevent.location}} likes</p>-->
+            <!--</div>-->
+            <!--<div class="col-sm-3">-->
+              <!--<h4 class="thumbnail-description">{{eventDuration.startDate.value}} - {{eventDuration.endDate.value}}</h4>-->
+              <!--<h4 class="thumbnail-description">{{eventDuration.startTime.value}} - -->
+                <!--{{eventDuration.endTime.value}} </h4>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;End Card Preview&ndash;&gt;-->
+    </div>
+  </div>
+</section>
+

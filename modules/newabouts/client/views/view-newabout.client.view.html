@@ -1,0 +1,42 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="heading-page" ng-bind="vm.newabout.title"></h1>
+      </div>
+    </div>
+  </div>
+  <div class="row about-middle">
+    <div class="col-lg-12">
+      <div class="jumbotron" style="padding:5%">
+        <div class="row">
+          <div class="col-md-5">
+            <!--<div class="thumbnail-about">-->
+              <img src="{{imageURL}}" class="img-responsive thumbnail-picture-about">
+            <!--</div>-->
+          </div>
+          <div class="col-md-7">
+            <div class="row">
+              <div class="col-lg-12">
+                <!--<h3 class="thumbnail-about-title" ng-bind="vm.newabout.textTitle"></h3>-->
+                <h4 class="thumbnail-about-description" ng-bind="vm.newabout.text"></h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <!--<button ui-sref="contactPage" class="contact-us-button"><h2>Contact Us</h2></button>-->
+                <button ui-sref="contacts" class="contact-submit-button"><h4>Contact Us</h4></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pull-right" ng-show="vm.authentication.user.roles == 'admin'">
+    <a class="btn contact-submit-button"
+       ui-sref="about-edit({ newaboutId: vm.newabout._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+          <h1 class="settings-title" ng-bind="user.username"></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <div class="row">
+          <div class="form-group text-center">
+            <img ng-src="{{user.profileImageURL}}" alt="{{user.displayName}}"
+                 class="img-thumbnail user-profile-picture">
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-3"><strong>First Name</strong></div>
+          <div class="col-xs-6" ng-bind="user.firstName"></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-3"><strong>Last Name</strong></div>
+          <div class="col-xs-6" ng-bind="user.lastName"></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-3"><strong>Email</strong></div>
+          <div class="col-xs-6" ng-bind="user.email"></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-3"><strong>Phone Number</strong></div>
+          <div class="col-xs-6" ng-bind="user.phone_number"></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-3"><strong>Provider</strong></div>
+          <div class="col-xs-6" ng-bind="user.provider"></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-3"><strong>Created</strong></div>
+          <div class="col-xs-6" ng-bind="user.created"></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-3"><strong>Roles</strong></div>
+          <div class="col-xs-6" ng-bind="user.roles"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-xs-12">
+        <a class="btn contact-submit-button" ui-sref="admin.user-edit({userId: user._id})">
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn contact-submit-button" ng-click="remove();" ng-if="user._id !== authentication.user._id">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

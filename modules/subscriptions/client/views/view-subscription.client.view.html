@@ -1,0 +1,26 @@
+<section>
+  <div class="container-fluid">
+    <div class="page-header">
+      <br>
+      <br>
+      <label>Email: {{vm.subscription.email}}</label>
+    </div>
+    <div class="pull-right"
+         ng-show="vm.authentication.user.roles == 'admin'">
+      <!--<a class="btn btn-primary"-->
+      <!--ui-sref="subscriptions.edit({ subscriptionId: vm.subscription._id })">-->
+      <!--<i class="glyphicon glyphicon-edit"></i>-->
+      <!--</a>-->
+      <a class="btn btn-primary" ng-click="vm.remove()">
+        <i class="glyphicon glyphicon-trash"></i>
+      </a>
+    </div>
+    <small>
+      <em class="text-muted">
+        Subscribed on
+        <span ng-bind="vm.subscription.created | date:'mediumDate'"></span>
+      </em>
+    </small>
+    <p class="lead" ng-bind="vm.subscription.content"></p>
+  </div>
+</section>

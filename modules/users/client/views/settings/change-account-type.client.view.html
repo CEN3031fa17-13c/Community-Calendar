@@ -1,0 +1,50 @@
+<section class="row" ng-controller="EditProfileController">
+  <div class="container-fluid">
+    <div class="row visible-sm visible-xs">
+      <div class="col-lg-12">
+        <h3 class="settings-title">Change Account Type</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4">
+        <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate
+              autocomplete="off">
+          <fieldset ng-init="fillFields()">
+            <div>
+              <div class="row">
+                <div class=col-lg-12">
+                  <h3>Super User Advantages!</h3>
+                  <p>
+                    This is a good place to display a paragraph explaining the advantages of been a Super User over been
+                    a
+                    Simple User. Remember to mention the ability to add multiples images (5) and a video.
+                  </p>
+                </div>
+              </div>
+
+              <div class="text-center form-group">
+                <button ng-if="(!user.superUser && !user.requestSuperUser)" type="submit" class="btn btn-primary">
+                  Request
+                  be Super User
+                </button>
+                <label ng-if="(!user.superUser && user.requestSuperUser)">Request be Super User Pending to be
+                  Approval!</label>
+                <button ng-if="(user.superUser && !user.requestSuperUser)" type="submit" class="btn btn-primary">Request
+                  be Simple User
+                </button>
+                <label ng-if="(user.superUser && user.requestSuperUser)">Request be a Simple User Pending to be
+                  Approval!</label>
+              </div>
+              <div ng-show="success" class="text-center text-success">
+                <strong>Request Sent Successfully</strong>
+              </div>
+              <div ng-show="error" class="text-center text-danger">
+                <strong ng-bind="error"></strong>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

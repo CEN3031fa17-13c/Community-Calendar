@@ -1,0 +1,32 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class="page-header">
+          <h1 class="heading-page">Users</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6">
+        <input class="form-control col-md-4 search-bar-users new-event-form-bar" type="text" ng-model="search" placeholder="Search"
+               ng-change="figureOutItemsToDisplay()"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="list-group">
+          <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
+            <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+            <p class="list-group-item-text pull-right small users-title-admin" ng-bind="user.roles"></p>
+            <p class="list-group-item-text" ng-bind="user.email"></p>
+          </a>
+        </div>
+        <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength"
+                    ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      </div>
+    </div>
+
+
+  </div>
+</section>

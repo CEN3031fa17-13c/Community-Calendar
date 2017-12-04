@@ -1,0 +1,28 @@
+<section>
+  <div class="container-fluid">
+
+    <div class="page-header">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="heading-page text-center">Subscriptions</h1>
+        </div>
+      </div>
+    </div>
+    <div class="list-group">
+      <a ng-repeat="subscription in vm.subscriptions"
+         ui-sref="subscriptions.view({ subscriptionId: subscription._id })"
+         class="list-group-item">
+        <small class="list-group-item-text">
+          Subscribed on
+          <span ng-bind="subscription.created | date:'mediumDate'"></span>
+          by guess with email
+          <span ng-bind="subscription.email"></span>
+        </small>
+        <h4 class="list-group-item-heading" ng-bind="subscription.name"></h4>
+      </a>
+    </div>
+    <div class="alert alert-warning text-center" ng-if="vm.subscriptions.$resolved && !vm.subscriptions.length">
+      There is no pending subscription at this moment!</a>
+    </div>
+  </div>
+</section>

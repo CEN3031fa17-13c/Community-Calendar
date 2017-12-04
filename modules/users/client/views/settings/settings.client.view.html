@@ -1,0 +1,73 @@
+<section ng-controller="SettingsController">
+  <div class="container-fluid">
+    <div class="page-header">
+      <div class="heading-page text-center ">
+        <h1>Settings</h1>
+      </div>
+    </div>
+    <div class="row visible-sm visible-xs text-center">
+      <nav class="col-xs-12">
+        <div class="dropdown" dropdown>
+          <div class="dropdown-style-settings contact-submit-button" >
+            <a class="dropdown-toggle" style="color: white !important" dropdown-toggle role="button">
+              Menu <span class="caret"></span>
+            </a>
+          </div>
+          <ul class="dropdown-menu" role="menu">
+            <li ui-sref-active="active">
+              <a ui-sref="settings.myevents">My Events</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="settings.history">Event History</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="settings.profile">Edit Profile</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="settings.picture">Change Profile Picture</a>
+            </li>
+            <li ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
+              <a ui-sref="settings.password">Change Password</a>
+            </li>
+            <li ui-sref-active="active" ng-show="authentication.user.roles != 'admin'">
+              <a ui-sref="settings.accountType">Change Account Type</a>
+            </li>
+            <!--<li ui-sref-active="active">-->
+            <!--<a ui-sref="settings.accounts">Manage Social Accounts</a>-->
+            <!--</li>-->
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="row">
+      <nav class="col-md-3">
+        <ul class="nav nav-pills nav-stacked visible-md visible-lg">
+          <li  ui-sref-active="active">
+            <a class= "styled-menu-item" ui-sref="settings.myevents">My Events</a>
+          </li>
+          <li ui-sref-active="active">
+            <a class= "styled-menu-item" ui-sref="settings.history">Event History</a>
+          </li>
+          <li ui-sref-active="active">
+            <a class= "styled-menu-item" ui-sref="settings.profile">Edit Profile</a>
+          </li>
+          <li ui-sref-active="active">
+            <a class= "styled-menu-item" ui-sref="settings.picture">Change Profile Picture</a>
+          </li>
+          <li ui-sref-active="active" ng-show="user.provider === 'local'">
+            <a class= "styled-menu-item" ui-sref="settings.password">Change Password</a>
+          </li>
+          <li ui-sref-active="active" ng-show="user.roles != 'admin'">
+            <a class= "styled-menu-item" ui-sref="settings.accountType">Change Account Type</a>
+          </li>
+          <!--<li ui-sref-active="active">-->
+          <!--<a ui-sref="settings.accounts">Manage Social Accounts</a>-->
+          <!--</li>-->
+        </ul>
+      </nav>
+      <div class="col-sm-9 col-md-8 settings-view">
+        <div ui-view></div>
+      </div>
+    </div>
+  </div>
+</section>

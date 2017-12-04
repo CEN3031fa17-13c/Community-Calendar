@@ -1,0 +1,28 @@
+<section>
+  <div class="container-fluid">
+    <div class="row visible-sm visible-xs">
+      <div class="col-lg-12">
+        <h3 class="settings-title">Event History</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="list-group">
+        <a ng-repeat="upcomingevent in historyList" ng-show="upcomingevent.user._id == authentication.user._id"
+           ui-sref="upcomingevents.view({ upcomingeventId: upcomingevent._id })"
+           class="list-group-item">
+          <small class="list-group-item-text">
+            Ended on
+            <span ng-bind="upcomingevent.eventDuration.endDate | date:'mediumDate'"></span>
+            by
+            <span ng-if="upcomingevent.user" ng-bind="upcomingevent.user.displayName"></span>
+            <span ng-if="!upcomingevent.user">Deleted User</span>
+          </small>
+          <h4 class="list-group-item-heading" ng-bind="upcomingevent.name"></h4>
+        </a>
+      </div>
+      <div class="alert alert-warning text-center" ng-if="upcomingeventList.$resolved && !upcomingeventList.length">
+        No history of events yet, why don't you <a ui-sref="upcomingevents.create">create one</a>?
+      </div>
+    </div>
+  </div>
+</section>
