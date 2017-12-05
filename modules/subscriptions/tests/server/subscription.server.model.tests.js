@@ -24,14 +24,15 @@ describe('Subscription Model Unit Tests:', function() {
       lastName: 'Name',
       displayName: 'Full Name',
       email: 'test@test.com',
-      username: 'username',
-      password: 'password'
+      phone_number: '5555555555',
+      username: 'testusername',
+      password: 'testpassword',
+      provider: 'local'    
     });
 
     user.save(function() {
       subscription = new Subscription({
-        name: 'Subscription Name',
-        user: user
+        email: 'subscriptionemail@notarealemail.com'
       });
 
       done();
@@ -47,8 +48,8 @@ describe('Subscription Model Unit Tests:', function() {
       });
     });
 
-    it('should be able to show an error when try to save without name', function(done) {
-      subscription.name = '';
+    it('should be able to show an error when try to save without email', function(done) {
+      subscription.email = '';
 
       return subscription.save(function(err) {
         should.exist(err);

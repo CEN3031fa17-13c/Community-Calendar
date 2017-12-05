@@ -190,7 +190,7 @@ module.exports = function (grunt) {
           coverage: true,
           require: 'test.js',
           coverageFolder: 'coverage/server',
-          reportFormats: ['cobertura','lcovonly'],
+          reportFormats: ['cobertura','html'],
           check: {
             lines: 40,
             statements: 40

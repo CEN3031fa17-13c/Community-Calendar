@@ -33,7 +33,7 @@
         };
 
         /* Map properties */
-        $scope.map = {center: [30.4398411, -84.28155099999998], zoom: 14};
+        $scope.map = {center: [30.4398411, -84.28155099999998], zoom: 100};
         /* Markers to represents in google map */
         $scope.markers = [];
         /* Category list */

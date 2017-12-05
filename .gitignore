@@ -78,4 +78,3 @@ mongod
 #======================
 node_modules
 .idea
-config
