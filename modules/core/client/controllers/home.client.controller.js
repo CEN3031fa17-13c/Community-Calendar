@@ -148,7 +148,7 @@
       //////Fill with future events if unable to fill from current week//////////
       if ($scope.popularEvents.length < 3){
         for (var i = 0; i<data.length; i++){
-          if ($filter('date')(data[i].eventDuration.endDate, "yyyy-MM-dd") >= $filter('date')(now, "yyyy-MM-dd")){
+          if ($filter('date')(data[i].eventDuration.startDate, "yyyy-MM-dd") > $filter('date')(weekFromToday, "yyyy-MM-dd")){
             $scope.popularEvents.push(data[i]);
           }
           if ($scope.popularEvents.length >= 3)break;
