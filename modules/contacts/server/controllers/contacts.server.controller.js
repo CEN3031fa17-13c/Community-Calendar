@@ -121,8 +121,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'communitycalendar2017@gmail.com',
-        pass: 'Team13C!'
+        user: '',
+        pass: ''
     }
 });
 
@@ -132,7 +132,7 @@ exports.sendMail = function (req, res) {
 
     transporter.sendMail({
         from: data.contactEmail,
-        to: 'communitycalendar2017@gmail.com',
+        to: '',
         subject: 'Message from ' + data.contactName,
         text: 'Message from ' + data.contactName + '\n' +
         'Email address: ' + data.contactEmail + '\n' +

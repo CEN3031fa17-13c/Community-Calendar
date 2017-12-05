@@ -53,6 +53,7 @@
 //     user.save(function () {
 //       subscription = {
 //         email: 'testemail@testers.com'
+//         name: 'Subscription name'
 //       };
 
 //       done();
@@ -100,6 +101,46 @@
 //                 // Call the assertion callback
 //                 done();
 //               });
+//           });
+//       });
+//   });
+
+//   it('should not be able to save an Subscription if not logged in', function (done) {
+//     agent.post('/api/subscriptions')
+//       .send(subscription)
+//       .expect(403)
+//       .end(function (subscriptionSaveErr, subscriptionSaveRes) {
+//         // Call the assertion callback
+//         done(subscriptionSaveErr);
+//       });
+//   });
+
+//   it('should not be able to save an Subscription if no name is provided', function (done) {
+//     // Invalidate name field
+//     subscription.name = '';
+
+//     agent.post('/api/auth/signin')
+//       .send(credentials)
+//       .expect(200)
+//       .end(function (signinErr, signinRes) {
+//         // Handle signin error
+//         if (signinErr) {
+//           return done(signinErr);
+//         }
+
+//         // Get the userId
+//         var userId = user.id;
+
+//         // Save a new Subscription
+//         agent.post('/api/subscriptions')
+//           .send(subscription)
+//           .expect(400)
+//           .end(function (subscriptionSaveErr, subscriptionSaveRes) {
+//             // Set message assertion
+//             (subscriptionSaveRes.body.message).should.match('Please fill Subscription name');
+
+//             // Handle Subscription save error
+//             done(subscriptionSaveErr);
 //           });
 //       });
 //   });

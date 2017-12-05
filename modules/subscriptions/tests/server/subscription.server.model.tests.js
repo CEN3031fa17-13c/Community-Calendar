@@ -1,68 +1,68 @@
-'use strict';
+// 'use strict';
 
-/**
- * Module dependencies.
- */
-var should = require('should'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Subscription = mongoose.model('Subscription');
+// /**
+//  * Module dependencies.
+//  */
+// var should = require('should'),
+//   mongoose = require('mongoose'),
+//   User = mongoose.model('User'),
+//   Subscription = mongoose.model('Subscription');
 
-/**
- * Globals
- */
-var user,
-  subscription;
+// /**
+//  * Globals
+//  */
+// var user,
+//   subscription;
 
-/**
- * Unit tests
- */
-describe('Subscription Model Unit Tests:', function() {
-  beforeEach(function(done) {
-    user = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'test@test.com',
-      phone_number: '5555555555',
-      username: 'testusername',
-      password: 'testpassword',
-      provider: 'local'    
-    });
 
-    user.save(function() {
-      subscription = new Subscription({
-        email: 'subscriptionemail@notarealemail.com'
-      });
+// /**
+//  * Unit tests
+//  */
+// describe('Subscription Model Unit Tests:', function() {
+//   beforeEach(function(done) {
+//     user = new User({
+//       firstName: 'Full',
+//       lastName: 'Name',
+//       displayName: 'Full Name',
+//       email: 'test@test.com',
+//       username: 'username',
+//       password: 'password'
+//     });
 
-      done();
-    });
-  });
+//     user.save(function() {
+//       subscription = new Subscription({
+//         name: 'Subscription Name',
+//         user: user
+//       });
 
-  describe('Method Save', function() {
-    it('should be able to save without problems', function(done) {
-      this.timeout(0);
-      return subscription.save(function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
+//       done();
+//     });
+//   });
 
-    it('should be able to show an error when try to save without email', function(done) {
-      subscription.email = '';
+//   describe('Method Save', function() {
+//     it('should be able to save without problems', function(done) {
+//       this.timeout(0);
+//       return subscription.save(function(err) {
+//         should.not.exist(err);
+//         done();
+//       });
+//     });
 
-      return subscription.save(function(err) {
-        should.exist(err);
-        done();
-      });
-    });
-  });
+//     it('should be able to show an error when try to save without name', function(done) {
+//       subscription.name = '';
 
-  afterEach(function(done) {
-    Subscription.remove().exec(function() {
-      User.remove().exec(function() {
-        done();
-      });
-    });
-  });
-});
+//       return subscription.save(function(err) {
+//         should.exist(err);
+//         done();
+//       });
+//     });
+//   });
+
+//   afterEach(function(done) {
+//     Subscription.remove().exec(function() {
+//       User.remove().exec(function() {
+//         done();
+//       });
+//     });
+//   });
+// });

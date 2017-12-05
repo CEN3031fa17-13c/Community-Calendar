@@ -205,7 +205,9 @@ module.exports = function (grunt) {
     },
     protractor: {
       options: {
-        configFile: 'protractor.conf.js'
+        configFile: 'protractor.conf.js',
+        noColor: false,
+        webdriverManagerUpdate: true
       },
       e2e: {
         options: {
@@ -304,9 +306,9 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['env:test', 'lint', 'mkdir:upload', 'copy:localConfig', 'server', 'mochaTest'/*, 'karma:unit'*/, 'protractor']);
   grunt.registerTask('test:server', ['env:test', /*'lint',*/ 'server', 'mochaTest']);
   grunt.registerTask('test:client', ['env:test', 'lint', 'karma:unit']);
-  grunt.registerTask('test:e2e', ['env:test', /*'lint'*/, 'dropdb', 'server', 'protractor']);
+  grunt.registerTask('test:e2e', ['env:test', 'lint', 'dropdb', 'server', 'protractor']);
   // Run project coverage
-  grunt.registerTask('coverage', ['env:test', /*'lint'*/, 'mocha_istanbul:coverage' /*'karma:unit'*/]);
+  grunt.registerTask('coverage', ['env:test', 'lint', 'mocha_istanbul:coverage', 'karma:unit']);
 
   // Run the project in development mode
   grunt.registerTask('default', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);

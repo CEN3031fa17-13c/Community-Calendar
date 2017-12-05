@@ -11,7 +11,6 @@
         var vm = this;
         $scope.authentication = Authentication;
         $scope.numberOfEventToDisplay = 4;
-        // $scope.nameToDisplay = '';
 
         // Get today object.
         $scope.today = new Date();
