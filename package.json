@@ -124,7 +124,5 @@
     "swig": "^1.4.2",
     "validator": "^3.41.2"
   },
-  "devDependencies": {
-    "nyc": "^11.3.0"
-  }
+  "devDependencies": {}
 }
