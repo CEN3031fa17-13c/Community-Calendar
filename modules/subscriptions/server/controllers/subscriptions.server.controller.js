@@ -121,6 +121,7 @@ exports.subscriptionByID = function (req, res, next, id) {
 
 /**
  * Original from Guangyu: Send subscription email.
+ * Send email to new subscribers.
  */
 var transporter = nodemailer.createTransport(config.mailer.options);
 

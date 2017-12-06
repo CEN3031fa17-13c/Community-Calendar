@@ -16,6 +16,7 @@ var validateLocalStrategyEmail = function (email) {
 
 /**
  * Subscription Schema
+ * Save subscriber emails.
  */
 var SubscriptionSchema = new Schema({
     email: {

@@ -11,9 +11,9 @@
     function SubscriptionsController($scope, $state, $window, Authentication, SubscriptionsService, $stateParams, $http) {
         console.log('SubscriptionsController');
         var vm = this;
-
+        // Get admin authentication.
         vm.authentication = Authentication;
-
+        // If the $stateParams.subscriptionId is true, get a simple object with this id. Otherwise, we are creating.
         if($stateParams.subscriptionId) {
             vm.subscription = SubscriptionsService.get($stateParams);
         }
@@ -26,7 +26,6 @@
 
         /** When the modal is submitted with an email, it calls this function. */
         $scope.submitted = function () {
-            console.log('Submitted from subscriptions module with email: ' + $scope.email);
             this.$close();
             vm.subscription = new SubscriptionsService({
                 email: $scope.email
@@ -35,17 +34,15 @@
         };
 
 
-        // Remove existing Subscription
+        // Remove existing Subscription.
         function remove() {
             if ($window.confirm('Are you sure you want to delete?')) {
                 vm.subscription.$remove($state.go('home'));
             }
         }
 
-        // Save Subscription
+        // Save Subscription.
         function save(isValid) {
-            console.log('In Save()');
-
             if (!isValid) {
                 $scope.$broadcast('show-errors-check-validity', 'vm.form.subscriptionForm');
                 return false;
@@ -55,7 +52,6 @@
             if (vm.subscription._id) {
                 vm.subscription.$update(successCallback, errorCallback);
             } else {
-                console.log('Creating a new subscription.');
                 vm.subscription.$save(successCallback, errorCallback);
             }
 
