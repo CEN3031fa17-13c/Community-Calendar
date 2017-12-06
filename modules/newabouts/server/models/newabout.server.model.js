@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 
 /**
  * Newabout Schema
+ * Save About field to the DB.
  */
 var NewaboutSchema = new Schema({
     title: {
