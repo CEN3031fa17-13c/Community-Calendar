@@ -118,7 +118,10 @@ exports.contactByID = function (req, res, next, id) {
     });
 };
 
-//guangyu contact email serverside controller
+/**
+ * Guangyu: Contact email serverside controller
+ * Send email to Community Calendar email with viewer contact information and message.
+ */
 var transporter = nodemailer.createTransport(config.mailer.options);
 
 exports.sendMail = function (req, res) {
