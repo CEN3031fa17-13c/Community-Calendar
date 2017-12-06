@@ -7,6 +7,8 @@ var path = require('path'),
     mongoose = require('mongoose'),
     Subscription = mongoose.model('Subscription'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+    config = require(path.resolve('./config/config')),
+    nodemailer = require('nodemailer'),
     _ = require('lodash');
 
 /**
@@ -120,20 +122,13 @@ exports.subscriptionByID = function (req, res, next, id) {
 /**
  * Original from Guangyu: Send subscription email.
  */
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: '',
-        pass: ''
-    }
-});
+var transporter = nodemailer.createTransport(config.mailer.options);
 
 exports.sendMail = function (req, res) {
     var data = req.body;
 
     transporter.sendMail({
-        from: '',
+        from: process.env.COMPANY_MAIL,
         to: data.contactEmail,
         subject: 'Community Calendar Subscription.',
         text: data.contactMsg
