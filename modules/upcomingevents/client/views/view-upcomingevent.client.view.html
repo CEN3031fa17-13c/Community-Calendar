@@ -16,20 +16,43 @@
   <small>
   <div class="container-fluid" ng-init="fillFields()">
     <div class="row" style="box-shadow: 0px 1px 5px 0px #969696">
-      <div class=" col-lg-offset-1 col-lg-6">
-        <!--background div-->
-        <!--<div class="event-name-background" ng-style="{'background-color': changeBackground()}">-->
-        <!--<img class="event-picture-description" ng-src="{{imageURLList[0]}}">-->
-        <!--</div>-->
-        <img ng-if="imageURLList.length == 1" class="event-picture-description img-responsive"
-             ng-src="{{imageURLList[0]}}">
-        <!-- Start Carousel -->
-        <carousel interval="myInterval" ng-if="imageURLList.length > 1" class="carousel-picture-description img-responsive" >
-          <slide ng-repeat="slideURL in imageURLList" active="slide.active">
-            <img class="carousel-picture-description" ng-src="{{slideURL}}" class="img-thumbnail add-event-picture">
-          </slide>
-        </carousel>
-        <!-- End Carousel -->
+
+
+          <div class=" col-lg-offset-1 col-lg-6">
+            <!--background div-->
+            <!--<div class="event-name-background" ng-style="{'background-color': changeBackground()}">-->
+            <!--<img class="event-picture-description" ng-src="{{imageURLList[0]}}">-->
+            <!--</div>-->
+            <img ng-if="imageURLList.length == 1" class="event-picture-description img-responsive"
+                 ng-src="{{imageURLList[0]}}">
+            <!-- Start Carousel -->
+            <div style="box-sizing: border-box; height: 300px;">
+              <carousel interval="myInterval" ng-if="imageURLList.length > 1" class="carousel-picture-description img-responsive" >
+                <slide ng-repeat="slideURL in imageURLList" active="slide.active">
+                  <img class="carousel-picture-description" ng-src="{{slideURL}}" class="img-thumbnail add-event-picture" style="height: 300px;">
+                </slide>
+              </carousel>
+            </div>
+            <!-- End Carousel -->
+
+
+
+
+
+      <!--<div class=" col-lg-offset-1 col-lg-6">-->
+        <!--&lt;!&ndash;background div&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="event-name-background" ng-style="{'background-color': changeBackground()}">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img class="event-picture-description" ng-src="{{imageURLList[0]}}">&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--<img ng-if="imageURLList.length == 1" class="event-picture-description img-responsive"-->
+             <!--ng-src="{{imageURLList[0]}}">-->
+        <!--&lt;!&ndash; Start Carousel &ndash;&gt;-->
+        <!--<carousel interval="myInterval" ng-if="imageURLList.length > 1" class="carousel-picture-description img-responsive" >-->
+          <!--<slide ng-repeat="slideURL in imageURLList" active="slide.active">-->
+            <!--<img class="carousel-picture-description" ng-src="{{slideURL}}" class="img-thumbnail add-event-picture">-->
+          <!--</slide>-->
+        <!--</carousel>-->
+        <!--&lt;!&ndash; End Carousel &ndash;&gt;-->
 
       </div>
       <div class="col-lg-3 event-name-background">
