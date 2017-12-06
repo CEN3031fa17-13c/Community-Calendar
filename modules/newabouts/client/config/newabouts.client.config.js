@@ -12,6 +12,7 @@
     menuService.addMenuItem('topbar', {
       title: 'About',
       state: 'about-view',
+      //state: 'about-create',     // This has to be enable if the first About object want to be created in the DB.
       roles: ['*']
     });
   }
