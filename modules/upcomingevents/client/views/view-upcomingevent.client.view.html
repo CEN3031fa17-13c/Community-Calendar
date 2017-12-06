@@ -8,9 +8,18 @@
       <div class=" col-lg-offset-1 col-lg-6">
         <!--background div-->
         <!--<div class="event-name-background" ng-style="{'background-color': changeBackground()}">-->
-          <!--<img class="event-picture-description" ng-src="{{imageURLList[0]}}">-->
+        <!--<img class="event-picture-description" ng-src="{{imageURLList[0]}}">-->
         <!--</div>-->
-        <img class="event-picture-description img-responsive" ng-src="{{imageURLList[0]}}">
+        <img ng-if="imageURLList.length == 1" class="event-picture-description img-responsive"
+             ng-src="{{imageURLList[0]}}">
+        <!-- Start Carousel -->
+        <carousel interval="myInterval" ng-if="imageURLList.length > 1" class="carousel-picture-description img-responsive" >
+          <slide ng-repeat="slideURL in imageURLList" active="slide.active">
+            <img class="carousel-picture-description" ng-src="{{slideURL}}" class="img-thumbnail add-event-picture">
+          </slide>
+        </carousel>
+        <!-- End Carousel -->
+
       </div>
       <div class="col-lg-3 event-name-background">
         <h1 class="event-name-title" ng-bind="vm.upcomingevent.name"></h1>
@@ -36,11 +45,9 @@
         <div class="row">
           <div class="col-lg-12">
             <h6 class="labels-events">DATE</h6>
-            <h5 class="information-events"> {{eventDuration.startDate.value | date:'mediumDate'}},
-              {{eventDuration.startDate.value | date:'hh:mm a'}} -
+            <h5 class="information-events"> {{startDateString}} -
             </h5>
-            <h5 class="information-events">{{eventDuration.endDate.value | date:'mediumDate'}},
-              {{eventDuration.endDate.value | date:'hh:mma'}}
+            <h5 class="information-events">{{endDateString}}
             </h5>
           </div>
         </div>

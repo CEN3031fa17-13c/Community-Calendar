@@ -33,7 +33,7 @@
         };
 
         /* Map properties */
-        $scope.map = {center: [30.4398411, -84.28155099999998], zoom: 100};
+        $scope.map = {center: [30.4398411, -84.28155099999998], zoom: 14};
         /* Markers to represents in google map */
         $scope.markers = [];
         /* Category list */
@@ -59,14 +59,19 @@
         };
 
         /**
-        * fillFields sets temporal eventDuration object and event marker container
-        * to be used by view-upcomingevent.client.view.html
-        * */
+         * fillFields sets temporal eventDuration object and event marker container
+         * to be used by view-upcomingevent.client.view.html
+         * */
         $scope.fillFields = function () {
             $scope.changeCat();
             if (vm.upcomingevent.eventDuration) {
                 $scope.eventDuration.startDate.value = new Date($filter('date')(vm.upcomingevent.eventDuration.startDate, "yyyy-MM-dd HH:mm"));
                 $scope.eventDuration.endDate.value = new Date($filter('date')(vm.upcomingevent.eventDuration.endDate, "yyyy-MM-dd HH:mm"));
+
+                // Create string object to display Dates.
+                $scope.startDateString = ($filter('date')(new Date(vm.upcomingevent.eventDuration.startDate), "yyyy-MM-dd HH:mm")).toString();
+                $scope.endDateString = ($filter('date')(new Date(vm.upcomingevent.eventDuration.endDate), "yyyy-MM-dd HH:mm")).toString();
+                console.log($scope.startDateString);
             }
             /* Clear the marker container */
             $scope.markers = [];
@@ -83,16 +88,20 @@
                 // console.log(vm.upcomingevent.imageURLList);
                 for (var i = 0; i < vm.upcomingevent.imageURLList.length; i++) {
                     if (vm.upcomingevent.imageURLList[i]) {
+                        console.log(vm.upcomingevent.imageURLList[i]);
                         $scope.imageURLList.push(vm.upcomingevent.imageURLList[i]);
                     } else {
+                        console.log("In else");
                         $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/placeholders/' + $scope.previewImg + '.jpg');
                     }
                 }
             } else {
+                console.log("No image");
+
                 $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/placeholders/' + $scope.previewImg + '.jpg');
             }
         };
-        $scope.changeCat = function(){//switch function called each time new category is picked to update placeholder
+        $scope.changeCat = function(){
             switch (vm.upcomingevent.category){
                 case "Concerts":
                     $scope.previewImg = 'concerts';
@@ -179,7 +188,6 @@
         });
 
         // Called after the user selected a new picture file
-        //creates uploader.queue which is used for S3
         $scope.uploader.onAfterAddingFile = function (fileItem) {
             // console.log("onAfterAddingFile");
             // console.log(fileItem);
@@ -204,7 +212,6 @@
         };
 
         // Called after the user has successfully uploaded a new picture
-        //unused function after AWS was added. used if server uploads are desired
         $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
             // console.log("onSuccessItem");
 
@@ -250,9 +257,22 @@
             $scope.error = response.message;
         };
 
+        // // Change upcoming event picture
+        // $scope.uploadEventPicture = function () {
+        //     console.log("uploadEventPicture");
+
+        //     // Clear messages
+        //     $scope.success = $scope.error = null;
+
+        //     // Start upload
+        //     $scope.uploader.uploadAll();
+        // };
 
         // Cancel the upload process
         $scope.cancelUpload = function () {
+            // console.log('cancelUpload');
+            // $scope.uploader.clearQueue();
+            // $scope.imageURL = "";
         };
 
 
@@ -273,6 +293,8 @@
                     type: Date,
                 }
             };
+
+            // console.log($scope.checkbox.value1);
 
             if ($scope.eventDuration.startDate.value) {
                 vm.upcomingevent.eventDuration.startDate = $scope.eventDuration.startDate.value;
@@ -305,7 +327,8 @@
                                 $scope.$broadcast('show-errors-check-validity', 'vm.form.upcomingeventForm');
                                 return false;
                             }
-                            $scope.s3upload(); //handles create update logic
+                            // TODO: move create/update logic to service
+                            $scope.s3upload();
                         }
                     });
                 }
@@ -335,7 +358,7 @@
                 vm.upcomingevent.likedby.push($scope.user.username);
                 vm.upcomingevent.$update(successCallback, errorCallback);
             }
-            else if ($scope.user && hasLiked) { //unlike functionality
+            else if ($scope.user && hasLiked) {
                 vm.upcomingevent.likes--;
                 vm.upcomingevent.likedby = vm.upcomingevent.likedby.filter(function () {
                     return !$scope.user.username
@@ -354,58 +377,60 @@
             }
 
         }
-        $scope.s3upload = function(){//TODO: remove old pictures from AWS
-            if(!$scope.uploader.queue.length){ //logic if no piture has been uploaded
+        $scope.s3upload = function(){
+            if(!$scope.uploader.queue.length){
+                console.log("if entered");
                 if (vm.upcomingevent._id) {
-                        vm.upcomingevent.$update(successCallback, errorCallback);
-                    } 
-                    else {//save placeholder as event image
-                        var newURL = [`modules/upcomingevents/client/img/eventImages/placeholders/${$scope.previewImg}.jpg`];
-                        vm.upcomingevent.imageURLList = newURL;
-                        vm.upcomingevent.$save(successCallback, errorCallback);
+                    //console.log("second if entered");
+                    vm.upcomingevent.$update(successCallback, errorCallback);
+                }
+                else {
+                    var newURL = [`modules/upcomingevents/client/img/eventImages/placeholders/${$scope.previewImg}.jpg`];
+                    vm.upcomingevent.imageURLList = newURL;
+                    vm.upcomingevent.$save(successCallback, errorCallback);
                 }
                 return;}
-            var myImgs = []; //create array to hold uploads           
+            var myImgs = [];
             for(var i = 0; i < $scope.uploader.queue.length; i++){
                 var temp = $scope.uploader.queue[i]._file;
                 (function(temp) {
-                var check = Pictures.getSig({filename: temp.name, filetype: temp.type}).$promise.then(function(data){
-                     myImgs.push(data.url);
-                const xhr = new XMLHttpRequest();
-                xhr.open('PUT', data.signedRequest);//async send to AWS
-                xhr.onreadystatechange = () => {
-                  if(xhr.readyState === 4){
-                    if(xhr.status === 200){
-                    }
-                    else{
-                      alert('Could not upload file.');
-                    }
-                  }
-                };
-                xhr.send(temp);
+                    var check = Pictures.getSig({filename: temp.name, filetype: temp.type}).$promise.then(function(data){
+                        myImgs.push(data.url);
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('PUT', data.signedRequest);
+                        xhr.onreadystatechange = () => {
+                            if(xhr.readyState === 4){
+                                if(xhr.status === 200){
+                                }
+                                else{
+                                    alert('Could not upload file.');
+                                }
+                            }
+                        };
+                        xhr.send(temp);
 
-                if(myImgs.length === $scope.uploader.queue.length){//update if event exists, create if new
-                    vm.upcomingevent.imageURLList = myImgs;
-                    if (vm.upcomingevent._id) {
-                        vm.upcomingevent.$update(successCallback, errorCallback);
-                    } 
-                    else {
-                        vm.upcomingevent.$save(successCallback, errorCallback);
-                    }
-                }
+                        if(myImgs.length === $scope.uploader.queue.length){
+                            vm.upcomingevent.imageURLList = myImgs;
+                            if (vm.upcomingevent._id) {
+                                vm.upcomingevent.$update(successCallback, errorCallback);
+                            }
+                            else {
+                                vm.upcomingevent.$save(successCallback, errorCallback);
+                            }
+                        }
 
-            function successCallback(res) {//callbacks for uploading
-                $state.go('upcomingevents.view', {
-                    upcomingeventId: res._id
-                });
-            }
+                        function successCallback(res) {
+                            $state.go('upcomingevents.view', {
+                                upcomingeventId: res._id
+                            });
+                        }
 
-            function errorCallback(res) {
-                vm.error = res.data.message;
-            }
-                });
+                        function errorCallback(res) {
+                            vm.error = res.data.message;
+                        }
+                    });
 
-            })(temp);//save temp in closure so that correct image is uploaded when dealing with promise in loop
+                })(temp);
             }
             function successCallback(res) {
                 $state.go('upcomingevents.view', {
