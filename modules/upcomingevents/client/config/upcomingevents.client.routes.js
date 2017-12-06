@@ -63,8 +63,8 @@
                     pageTitle: 'Upcomingevent {{ upcomingeventResolve.name }}'
                 }
             })
-            .state('upcomingevents.selectedList', {
-                url: '/list',
+            .state('upcomingevents.today', {
+                url: '/list/today',
                 templateUrl: 'modules/upcomingevents/client/views/selected-list-upcomingevent.client.view.html',
                 controller: 'UpcomingeventsListController',
                 controllerAs: 'vm',
@@ -72,7 +72,43 @@
                     upcomingeventResolve: getUpcomingevents
                 },
                 data: {
-                    pageTitle: 'Selected List'
+                    pageTitle: 'Today List'
+                }
+            })
+            .state('upcomingevents.week', {
+                url: '/list/week',
+                templateUrl: 'modules/upcomingevents/client/views/selected-list-upcomingevent.client.view.html',
+                controller: 'UpcomingeventsListController',
+                controllerAs: 'vm',
+                resolve: {
+                    upcomingeventResolve: getUpcomingevents
+                },
+                data: {
+                    pageTitle: 'Week List'
+                }
+            })
+            .state('upcomingevents.month', {
+                url: '/list/month',
+                templateUrl: 'modules/upcomingevents/client/views/selected-list-upcomingevent.client.view.html',
+                controller: 'UpcomingeventsListController',
+                controllerAs: 'vm',
+                resolve: {
+                    upcomingeventResolve: getUpcomingevents
+                },
+                data: {
+                    pageTitle: 'Month List'
+                }
+            })
+            .state('upcomingevents.all', {
+                url: '/list/all',
+                templateUrl: 'modules/upcomingevents/client/views/selected-list-upcomingevent.client.view.html',
+                controller: 'UpcomingeventsListController',
+                controllerAs: 'vm',
+                resolve: {
+                    upcomingeventResolve: getUpcomingevents
+                },
+                data: {
+                    pageTitle: 'All List'
                 }
             });
     }
