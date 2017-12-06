@@ -95,7 +95,9 @@
                  var temp = {};
                  temp.title = data[i].name;
                  temp.start = data[i].eventDuration.startDate;
+                 temp.start = new Date(temp.start);
                  temp.end = data[i].eventDuration.endDate;
+                 temp.end = new Date(temp.end);
                  temp.category = data [i].category;
                  temp.eventID = data[i]._id;
                  temp.org = data[i].organization;
