@@ -3,6 +3,17 @@
 </head>
 <!-- Include YT library and this directive -->
 <section>
+  <div class="pull-left" style="margin-left:20px"
+       ng-show="vm.upcomingevent.isCurrentUserOwner || vm.authentication.user.roles == 'admin'">
+    <a class="btn contact-submit-button"
+       ui-sref="upcomingevents.edit({ upcomingeventId: vm.upcomingevent._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn contact-submit-button" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
   <div class="container-fluid" ng-init="fillFields()">
     <div class="row" style="box-shadow: 0px 1px 5px 0px #969696">
       <div class=" col-lg-offset-1 col-lg-6">
@@ -167,18 +178,6 @@
   <!--&lt;!&ndash;End Date Object&ndash;&gt;-->
 
   <!--then the map-->
-
-  <div class="pull-right"
-       ng-show="vm.upcomingevent.isCurrentUserOwner || vm.authentication.user.roles == 'admin'">
-    <a class="btn contact-submit-button"
-       ui-sref="upcomingevents.edit({ upcomingeventId: vm.upcomingevent._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn contact-submit-button" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
     <em class="text-muted">
       Posted on
       <span ng-bind="vm.upcomingevent.created | date:'mediumDate'"></span>
