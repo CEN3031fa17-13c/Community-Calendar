@@ -9,10 +9,6 @@
 
     function routeConfig($stateProvider) {
         $stateProvider
-            // .state('newabouts', {
-            //     url: '/about',
-            //     templateUrl: 'modules/newabouts/client/views/view-newabout.client.view.html'
-            // })
             .state('about-create', {
                 url: '/create',
                 templateUrl: 'modules/newabouts/client/views/form-newabout.client.view.html',
@@ -53,7 +49,7 @@
             });
     }
 
-    // Get the list of about objects to be displayed in the List page.
+    /** Get the list of about objects to be displayed in the List page. */
     getNewabouts.$inject = ['NewaboutsService'];
 
     function getNewabouts(NewaboutsService) {

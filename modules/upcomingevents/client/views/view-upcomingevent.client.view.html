@@ -14,6 +14,7 @@
     </a>
   </div>
   <small>
+<<<<<<< HEAD
   <div class="container-fluid" ng-init="fillFields()">
     <div class="row" style="box-shadow: 0px 1px 5px 0px #969696">
       <div class=" col-lg-offset-1 col-lg-6">
@@ -56,77 +57,128 @@
             </h5>
             <h5 class="information-events">{{endDateString}}
             </h5>
+=======
+    <div class="container-fluid" ng-init="fillFields()">
+      <div class="row" style="box-shadow: 0px 1px 5px 0px #969696">
+        <div class=" col-lg-offset-1 col-lg-6">
+          <img ng-if="imageURLList.length == 1" class="event-picture-description img-responsive"
+               ng-src="{{imageURLList[0]}}">
+          <!-- Start Carousel -->
+          <div style="box-sizing: border-box; height: 300px;">
+            <carousel interval="myInterval" ng-if="imageURLList.length > 1"
+                      class="carousel-picture-description img-responsive">
+              <slide ng-repeat="slideURL in imageURLList" active="slide.active">
+                <img class="carousel-picture-description" ng-src="{{slideURL}}" class="img-thumbnail add-event-picture"
+                     style="height: 300px;">
+              </slide>
+            </carousel>
+>>>>>>> 039148babc26a1c9592afe03621534ce9f74bb41
           </div>
+          <!-- End Carousel -->
         </div>
-        <!--display the location on the next row-->
-        <div class="row">
-          <div class="col-lg-12">
-            <h6 class="labels-events">LOCATION</h6>
-            <h5 class="information-events">{{vm.upcomingevent.location}} </h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <!--event description-->
-        <div class="row">
-          <div class="col-lg-12">
-            <h6 class="labels-events"> DESCRIPTION </h6>
-            <h5 class="description-events"> {{vm.upcomingevent.description}}</h5>
-          </div>
-        </div>
-        <!--category & dress code-->
-        <div class="row">
-          <div class="col-lg-4">
-            <h6 class="labels-events"> CATEGORY </h6>
-            <h5 class="information-events"> {{vm.upcomingevent.category}}</h5>
-          </div>
-          <div class="col-lg-4">
-            <h6 class="labels-events"> DRESS CODE </h6>
-            <h5 class="information-events"> {{vm.upcomingevent.dress_code}}</h5>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <!--Video-->
-            <div ng-show="vm.upcomingevent.videoURL != ''">
-              <ng-youtube-embed video=vm.upcomingevent.videoURL width="100%"></ng-youtube-embed>
+        <div class="col-lg-3 event-name-background">
+          <h1 class="event-name-title" ng-bind="vm.upcomingevent.name"></h1>
+          <h4 class="event-name-organizer"> By: {{vm.upcomingevent.organization}}</h4>
+          <!--Start Like-->
+          <div class="row like-button">
+            <div ng-hide="!user" style="display:inline">
+              <i class="btn btn-default" ng-click="vm.like()">
+                <i class=" like-button-color fa fa-thumbs-up"></i>
+              </i>
+              <h2 class="like-event" ng-bind="vm.upcomingevent.likes"></h2>
             </div>
-            <div><h4>{{video1}}</h4></div>
-            <!---->
           </div>
+          <!--End Like-->
         </div>
       </div>
-    </div>
-    <!--organizer contact information-->
-    <div class="row organizer-contact" ng-if="vm.upcomingevent.contact">
-      <div class="col-lg-12 text-center">
-        <h4 class="labels-events"> IF YOU HAVE ANY QUESTIONS CONTACT THE ORGANIZER AT: </h4>
-        <i class=" fa fa-envelope-o"></i>
-        <h5 style="display:inline">{{vm.upcomingevent.contact.email}} &emsp;&emsp;</h5>
-        <i class=" fa fa-mobile"></i>
-        <h5 style="display:inline">{{vm.upcomingevent.contact.phone_number}}</h5>
-      </div>
-    </div>
 
-    <!--put the pictures, videos, and contact information-->
-    <div class="row" style="margin-top:20px">
-      <div class="col-lg-offset-1 col-lg-10 text-center">
-        <!--Start Map-->
-        <h4 class="labels-events"> Event Location </h4>
-        <ng-map zoom-to-include-markers="auto" center="{{ map.center }}" draggable="true">
-          <marker title="You" position="current-location" animation="Animation.BOUNCE" centered="true"></marker>
-          <marker animation="Animation.DROP" ng-repeat="marker in markers" position="{{ marker.position }}"
-                  title="{{ marker.name }}">
-          </marker>
-        </ng-map>
+      <!--then split off in 2 columns name and description and likes and on the right the time and location-->
+      <div class="row margins-description">
+        <div class=" col-lg-offset-1 col-lg-3">
+          <!--display the date on the first row -->
+          <div class="row">
+            <div class="col-lg-12">
+              <h6 class="labels-events">DATE</h6>
+              <h5 class="information-events"> {{startDateString}} -
+              </h5>
+              <h5 class="information-events">{{endDateString}}
+              </h5>
+            </div>
+          </div>
+          <!--display the location on the next row-->
+          <div class="row">
+            <div class="col-lg-12">
+              <h6 class="labels-events">LOCATION</h6>
+              <h5 class="information-events">{{vm.upcomingevent.location}} </h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <!--event description-->
+          <div class="row">
+            <div class="col-lg-12">
+              <h6 class="labels-events"> DESCRIPTION </h6>
+              <h5 class="description-events"> {{vm.upcomingevent.description}}</h5>
+            </div>
+          </div>
+          <!--category & dress code-->
+          <div class="row">
+            <div class="col-lg-4">
+              <h6 class="labels-events"> CATEGORY </h6>
+              <h5 class="information-events"> {{vm.upcomingevent.category}}</h5>
+            </div>
+            <div class="col-lg-4">
+              <h6 class="labels-events"> DRESS CODE </h6>
+              <h5 class="information-events"> {{vm.upcomingevent.dress_code}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <!--Video-->
+              <div ng-show="vm.upcomingevent.videoURL != ''">
+                <ng-youtube-embed video=vm.upcomingevent.videoURL width="100%"></ng-youtube-embed>
+              </div>
+              <div><h4>{{video1}}</h4></div>
+              <!---->
+            </div>
+          </div>
+        </div>
         <!--End Map-->
       </div>
-    </div>
+      <!--organizer contact information-->
+      <div class="row organizer-contact" ng-if="vm.upcomingevent.contact">
+        <div class="col-lg-12 text-center">
+          <h4 class="labels-events"> IF YOU HAVE ANY QUESTIONS CONTACT THE ORGANIZER AT: </h4>
+          <i class=" fa fa-envelope-o"></i>
+          <h5 style="display:inline">{{vm.upcomingevent.contact.email}} &emsp;&emsp;</h5>
+          <i class=" fa fa-mobile"></i>
+          <h5 style="display:inline">{{vm.upcomingevent.contact.phone_number}}</h5>
+        </div>
+      </div>
+
+      <!--put the pictures, videos, and contact information-->
+      <div class="row" style="margin-top:20px">
+        <div class="col-lg-offset-1 col-lg-10 text-center">
+          <!--Start Map-->
+          <h4 class="labels-events"> Event Location </h4>
+          <ng-map zoom-to-include-markers="auto" center="{{ map.center }}" draggable="true">
+            <marker title="You" position="current-location" animation="Animation.BOUNCE" centered="true"></marker>
+            <marker animation="Animation.DROP" ng-repeat="marker in markers" position="{{ marker.position }}"
+                    title="{{ marker.name }}">
+            </marker>
+          </ng-map>
+          <!--End Map-->
+        </div>
+      </div>
 
     </div>
+<<<<<<< HEAD
   </div>
   <!--End Map-->
   <!--then the map-->
+=======
+    </div>
+>>>>>>> 039148babc26a1c9592afe03621534ce9f74bb41
     <em class="text-muted">
       Posted on
       <span ng-bind="vm.upcomingevent.created | date:'mediumDate'"></span>

@@ -8,7 +8,8 @@
 
   NewaboutsService.$inject = ['$resource'];
 
-  function NewaboutsService($resource) {  //returns resource object
+  // Returns resource object
+  function NewaboutsService($resource) {
     return $resource('api/newabouts/:newaboutId', {
       newaboutId: '@_id'
     }, {

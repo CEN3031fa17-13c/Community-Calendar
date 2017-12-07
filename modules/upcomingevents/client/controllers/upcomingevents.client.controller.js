@@ -26,8 +26,7 @@
         /* Time to swap event images. */
         $scope.myInterval = 5000;
 
-
-        /* Check boxes */
+        /* Check box to display the End Date field */
         $scope.checkbox = {
             value1: true
         };
@@ -53,25 +52,24 @@
         $scope.minStartDate = ($filter('date')(new Date(), "yyyy-MM-dd")).toString();
         $scope.minEndDate = ($filter('date')($scope.eventDuration.startDate.value, "yyyy-MM-dd")).toString();
 
+        /* Minimum end date require */
         $scope.fillMinDates = function () {
-            /* Minimum end date require */
             $scope.minEndDate = ($filter('date')($scope.eventDuration.startDate.value, "yyyy-MM-dd")).toString();
         };
 
         /**
-         * fillFields sets temporal eventDuration object and event marker container
+         * fillFields sets temporal eventDuration object, image url, and event marker container
          * to be used by view-upcomingevent.client.view.html
          * */
         $scope.fillFields = function () {
             $scope.changeCat();
             if (vm.upcomingevent.eventDuration) {
+                // Create event duration object.
                 $scope.eventDuration.startDate.value = new Date($filter('date')(vm.upcomingevent.eventDuration.startDate, "yyyy-MM-dd HH:mm"));
                 $scope.eventDuration.endDate.value = new Date($filter('date')(vm.upcomingevent.eventDuration.endDate, "yyyy-MM-dd HH:mm"));
-
                 // Create string object to display Dates.
                 $scope.startDateString = ($filter('date')(new Date(vm.upcomingevent.eventDuration.startDate), "yyyy-MM-dd HH:mm")).toString();
                 $scope.endDateString = ($filter('date')(new Date(vm.upcomingevent.eventDuration.endDate), "yyyy-MM-dd HH:mm")).toString();
-                console.log($scope.startDateString);
             }
             /* Clear the marker container */
             $scope.markers = [];
@@ -85,22 +83,23 @@
                 });
             }
             if (vm.upcomingevent.imageURLList) {
-                // console.log(vm.upcomingevent.imageURLList);
+                // For each image url, save it to the temporal list.
                 for (var i = 0; i < vm.upcomingevent.imageURLList.length; i++) {
                     if (vm.upcomingevent.imageURLList[i]) {
-                        console.log(vm.upcomingevent.imageURLList[i]);
                         $scope.imageURLList.push(vm.upcomingevent.imageURLList[i]);
                     } else {
-                        console.log("In else");
+                        // If there is not a valid image, put the default image according to the event category.
                         $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/placeholders/' + $scope.previewImg + '.jpg');
                     }
                 }
             } else {
-                console.log("No image");
-
+                // Save the default image url.
                 $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/placeholders/' + $scope.previewImg + '.jpg');
             }
         };
+        /**
+        *Switch according to the event category.
+        */
         $scope.changeCat = function(){
             switch (vm.upcomingevent.category){
                 case "Concerts":
@@ -132,9 +131,9 @@
                     break;
             }
         };
-        //**
-        //function to change the category color of the individual event page top
-        //**
+        /**
+        * Function to change the category color of the individual event page top.
+        */
         $scope.changeBackground = function(){
             var color;
             switch(vm.upcomingevent.category ){
@@ -169,7 +168,7 @@
             return color;
         };
 
-        /*
+        /**
         * Upload upcoming event images.
         */
         // Create file uploader instance
@@ -189,8 +188,6 @@
 
         // Called after the user selected a new picture file
         $scope.uploader.onAfterAddingFile = function (fileItem) {
-            // console.log("onAfterAddingFile");
-            // console.log(fileItem);
             if ($window.FileReader) {
                 var fileReader = new FileReader();
                 fileReader.readAsDataURL(fileItem._file);
@@ -202,8 +199,6 @@
                             $scope.imageURLList.splice($scope.imageURLList.indexOf(fileReaderEvent.target.result), 1);
                         }
                         $scope.imageURLList.push(fileReaderEvent.target.result);
-                        // console.log($scope.imageURLList);
-
                         // Upload the new selected picture.
                         // $scope.uploadEventPicture();
                     }, 0);
@@ -213,8 +208,6 @@
 
         // Called after the user has successfully uploaded a new picture
         $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            // console.log("onSuccessItem");
-
             // Show success message
             $scope.success = true;
 
@@ -241,8 +234,6 @@
             vm.upcomingevent.imageURLList.push(response.file.path);
             $scope.imageURLList.push(response.file.path);
 
-            // console.log($scope.uploader.queue);
-
             $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/default.png' + response.file.filename);
             // Clear upload buttons
             $scope.cancelUpload();
@@ -257,22 +248,8 @@
             $scope.error = response.message;
         };
 
-        // // Change upcoming event picture
-        // $scope.uploadEventPicture = function () {
-        //     console.log("uploadEventPicture");
-
-        //     // Clear messages
-        //     $scope.success = $scope.error = null;
-
-        //     // Start upload
-        //     $scope.uploader.uploadAll();
-        // };
-
         // Cancel the upload process
         $scope.cancelUpload = function () {
-            // console.log('cancelUpload');
-            // $scope.uploader.clearQueue();
-            // $scope.imageURL = "";
         };
 
 
@@ -293,9 +270,7 @@
                     type: Date,
                 }
             };
-
-            // console.log($scope.checkbox.value1);
-
+            // Save upcoming event starting date.
             if ($scope.eventDuration.startDate.value) {
                 vm.upcomingevent.eventDuration.startDate = $scope.eventDuration.startDate.value;
             }
@@ -379,9 +354,7 @@
         }
         $scope.s3upload = function(){
             if(!$scope.uploader.queue.length){
-                console.log("if entered");
                 if (vm.upcomingevent._id) {
-                    //console.log("second if entered");
                     vm.upcomingevent.$update(successCallback, errorCallback);
                 }
                 else {

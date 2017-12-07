@@ -10,6 +10,7 @@
     function UpcomingeventsListController($scope, UpcomingeventsService, Authentication, orderBy, $filter, $state, NameToDisplayService) {
         var vm = this;
         $scope.authentication = Authentication;
+        // Number of events to be displayed in a row.
         $scope.numberOfEventToDisplay = 4;
 
         // Get today object.
@@ -41,6 +42,7 @@
             $scope.upcomingeventList = [];
             $scope.historyList = [];
 
+            // For each object in the DB:
             for (var i = 0; i < data.length; i++) {
                 if (($filter('date')(data[i].eventDuration.endDate, "yyyy-MM-dd") < $filter('date')($scope.today, "yyyy-MM-dd"))) {
                     // Get history events, the events that finished before today.
@@ -67,6 +69,7 @@
             $scope.weekFullList = [];
             $scope.monthFullList = [];
 
+            // For each event that is not a pass event:
             for (i = 0; i < $scope.upcomingeventList.length; i++) {
                 if ($filter('date')($scope.upcomingeventList[i].eventDuration.startDate, "yyyy-MM-dd") <= $filter('date')($scope.today, "yyyy-MM-dd")) {
                     // Get today events, the events that are happening today. Also, it is a week and month event.
@@ -92,21 +95,23 @@
             $scope.nameToDisplay = NameToDisplayService.get();
         };
 
+        // Change the view and load the today event list.
         $scope.tEvents = function () {
             NameToDisplayService.set("today");
             $state.go('upcomingevents.today', {});
         };
+        // Change the view and load the week event list.
         $scope.wEvents = function () {
             NameToDisplayService.set("week");
             $state.go('upcomingevents.week', {});
         };
+        // Change the view and load the month event list.
         $scope.mEvents = function () {
             NameToDisplayService.set("month");
             $state.go('upcomingevents.month', {});
         };
+        // Change the view and load the all upcoming event list.
         $scope.allEvents = function () {
-            console.log("Receiving");
-
             NameToDisplayService.set("all");
             $state.go('upcomingevents.all', {});
         };

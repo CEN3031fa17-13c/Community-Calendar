@@ -7,6 +7,12 @@
 
     routeConfig.$inject = ['$stateProvider'];
 
+    /**
+     * @param $stateProvider
+     * Admin is able to view, delete, and edit subscribers, but not able to create new subscriptions.
+     * User is nether able to view, delete, edit, or create.
+     * Guess is just able to create.
+     */
     function routeConfig($stateProvider) {
         $stateProvider
             .state('subscriptions', {
