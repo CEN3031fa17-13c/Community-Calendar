@@ -17,10 +17,6 @@
   <div class="container-fluid" ng-init="fillFields()">
     <div class="row" style="box-shadow: 0px 1px 5px 0px #969696">
       <div class=" col-lg-offset-1 col-lg-6">
-        <!--background div-->
-        <!--<div class="event-name-background" ng-style="{'background-color': changeBackground()}">-->
-        <!--<img class="event-picture-description" ng-src="{{imageURLList[0]}}">-->
-        <!--</div>-->
         <img ng-if="imageURLList.length == 1" class="event-picture-description img-responsive"
              ng-src="{{imageURLList[0]}}">
         <!-- Start Carousel -->
@@ -100,22 +96,6 @@
           </div>
         </div>
       </div>
-      <!--End Map-->
-
-      <!--&lt;!&ndash;Start Date Object&ndash;&gt;-->
-      <!--<div>-->
-      <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.startDate.toString()).substring(0, 10)"></h3>-->
-      <!--</div>-->
-      <!--<div>-->
-      <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.startDate.toString()).substring(11, 16)"></h3>-->
-      <!--</div>-->
-      <!--<div>-->
-      <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.endDate.toString()).substring(0, 10)"></h3>-->
-      <!--</div>-->
-      <!--<div>-->
-      <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.endDate.toString()).substring(11, 16)"></h3>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;End Date Object&ndash;&gt;-->
     </div>
     <!--organizer contact information-->
     <div class="row organizer-contact" ng-if="vm.upcomingevent.contact">
@@ -146,37 +126,6 @@
     </div>
   </div>
   <!--End Map-->
-
-  <!--&lt;!&ndash;Start Date Object&ndash;&gt;-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.startDate.toString()).substring(0, 10)"></h3>-->
-  <!--</div>-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.startDate.toString()).substring(11, 16)"></h3>-->
-  <!--</div>-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.endDate.toString()).substring(0, 10)"></h3>-->
-  <!--</div>-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.endDate.toString()).substring(11, 16)"></h3>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;End Date Object&ndash;&gt;-->
-  <!--<div class="col-lg-3">-->
-  <!--&lt;!&ndash;Start Date Object&ndash;&gt;-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.startDate.toString()).substring(0, 10)"></h3>-->
-  <!--</div>-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.startDate.toString()).substring(11, 16)"></h3>-->
-  <!--</div>-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.endDate.toString()).substring(0, 10)"></h3>-->
-  <!--</div>-->
-  <!--<div>-->
-  <!--<h3 ng-bind="(vm.upcomingevent.eventDuration.endDate.toString()).substring(11, 16)"></h3>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;End Date Object&ndash;&gt;-->
-
   <!--then the map-->
     <em class="text-muted">
       Posted on
