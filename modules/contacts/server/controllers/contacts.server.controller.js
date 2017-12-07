@@ -7,6 +7,8 @@ var path = require('path'),
     mongoose = require('mongoose'),
     Contact = mongoose.model('Contact'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+    config = require(path.resolve('./config/config')),
+    nodemailer = require('nodemailer'),
     _ = require('lodash');
 
 /**
@@ -116,15 +118,11 @@ exports.contactByID = function (req, res, next, id) {
     });
 };
 
-//guangyu contact email serverside controller
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'communitycalendar2017@gmail.com',
-        pass: 'Team13C!'
-    }
-});
+/**
+ * Guangyu: Contact email serverside controller
+ * Send email to Community Calendar email with viewer contact information and message.
+ */
+var transporter = nodemailer.createTransport(config.mailer.options);
 
 exports.sendMail = function (req, res) {
 
@@ -132,7 +130,7 @@ exports.sendMail = function (req, res) {
 
     transporter.sendMail({
         from: data.contactEmail,
-        to: 'communitycalendar2017@gmail.com',
+        to: process.env.COMPANY_MAIL,
         subject: 'Message from ' + data.contactName,
         text: 'Message from ' + data.contactName + '\n' +
         'Email address: ' + data.contactEmail + '\n' +

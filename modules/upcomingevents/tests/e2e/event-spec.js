@@ -3,8 +3,8 @@ describe('event e2e tests', function() {
 
 	beforeEach(function() {
  	   browser.get('http://localhost:3000/upcomingevents/list');
-     browser.sleep(5000);
-    element(by.css('[ng-click="$dismiss()"]')).click();
+     browser.sleep(7000);
+     element(by.css('[ng-click="$dismiss()"]')).click();
   	});
 
   	it('should have a title', function() {

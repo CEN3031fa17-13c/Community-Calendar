@@ -12,8 +12,9 @@
         var vm = this;
         vm.authentication = Authentication;
         vm.newabout = newabout;
+        // Query the About list using promise.
         vm.newabouts = NewaboutsService.query().$promise.then(function (data) {
-            // Get the fist about profile from the DB.
+            // If the is an About object, get the fist about profile from the DB.
             if (data.length > 0) {
                 vm.newabout = data[0];
             }
@@ -22,6 +23,7 @@
             if (vm.newabout.imageURL && vm.newabout.imageURL !== './modules/newabouts/client/img/aboutImages/uploads/') {
                 $scope.imageURL = vm.newabout.imageURL;
             } else {
+                // If not, save the default image.
                 $scope.imageURL = 'modules/newabouts/client/img/aboutImages/default.png';
             }
 
@@ -42,7 +44,7 @@
         });
 
         // Set file uploader image filter
-        //unused in favor of AWS
+        // Unused in favor of AWS
         $scope.uploader.filters.push({
             name: 'imageFilter',
             fn: function (item, options) {
@@ -52,7 +54,7 @@
         });
 
         // Called after the user selected a new picture file
-        //Only used to create queue of files for image uploading
+        // Only used to create queue of files for image uploading
         $scope.uploader.onAfterAddingFile = function (fileItem) {
             if ($window.FileReader) {
                 var fileReader = new FileReader();
@@ -83,7 +85,7 @@
         };
 
         // Called after the user has failed to uploaded a new picture
-        // unused function in favor of AWS. Useful if uploading to server is brought back
+        // Unused function in favor of AWS. Useful if uploading to server is brought back
         $scope.uploader.onErrorItem = function (fileItem, response, status, headers) {
             // Clear upload buttons
             $scope.cancelUpload();
@@ -104,7 +106,7 @@
         };
 
         // Cancel the upload process
-        //Unused in favor of AWS
+        // Unused in favor of AWS
         $scope.cancelUpload = function () {
             $scope.uploader.clearQueue();
             $scope.imageURL = "";
@@ -112,7 +114,6 @@
         // Get signed S3 response to allow uploading to AWS S3 bucket
         $scope.signS3 = function(){
             if(!$scope.uploader.queue.length){ 
-                console.log("if entered");
                 if (vm.newabout._id) {  //should always be true. should never need to create new object for DB
                         vm.newabout.$update(successCallback, errorCallback);
                     } 
@@ -174,7 +175,8 @@
         };
 
         // Save Newabout
-        function save(isValid) {    //all save logic is done in signS3 function
+        // All save logic is done in signS3 function
+        function save(isValid) {
             if (!isValid) {
                 $scope.$broadcast('show-errors-check-validity', 'vm.form.newaboutForm');
                 return false;

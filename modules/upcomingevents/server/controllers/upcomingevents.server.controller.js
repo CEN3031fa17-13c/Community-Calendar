@@ -47,6 +47,7 @@ exports.uploadImage = function (req, res) { //used for server uploading
 exports.create = function (req, res) {
     var upcomingevent = new Upcomingevent(req.body);
     upcomingevent.user = req.user;
+    // Save the contact information of the user that created this event.
     upcomingevent.contact = {
         email: req.user.email,
         phone_number: req.user.phone_number
@@ -84,6 +85,7 @@ exports.update = function (req, res) {
 
     var upcomingevent = req.upcomingevent;
     upcomingevent = _.extend(upcomingevent, req.body);
+    // Update the contact information of the user that edited this event.
     if (req.user.roles == 'user') {
         var contact = {
             email: req.user.email,

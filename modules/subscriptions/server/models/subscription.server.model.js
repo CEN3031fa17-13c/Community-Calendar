@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 /**
  * Module dependencies.
@@ -16,6 +16,7 @@ var validateLocalStrategyEmail = function (email) {
 
 /**
  * Subscription Schema
+ * Save subscriber emails.
  */
 var SubscriptionSchema = new Schema({
     email: {

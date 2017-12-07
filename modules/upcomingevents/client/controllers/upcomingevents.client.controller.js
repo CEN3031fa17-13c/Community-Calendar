@@ -26,8 +26,7 @@
         /* Time to swap event images. */
         $scope.myInterval = 5000;
 
-
-        /* Check boxes */
+        /* Check box to display the End Date field */
         $scope.checkbox = {
             value1: true
         };
@@ -53,20 +52,24 @@
         $scope.minStartDate = ($filter('date')(new Date(), "yyyy-MM-dd")).toString();
         $scope.minEndDate = ($filter('date')($scope.eventDuration.startDate.value, "yyyy-MM-dd")).toString();
 
+        /* Minimum end date require */
         $scope.fillMinDates = function () {
-            /* Minimum end date require */
             $scope.minEndDate = ($filter('date')($scope.eventDuration.startDate.value, "yyyy-MM-dd")).toString();
         };
 
         /**
-        * fillFields sets temporal eventDuration object and event marker container
-        * to be used by view-upcomingevent.client.view.html
-        * */
+         * fillFields sets temporal eventDuration object, image url, and event marker container
+         * to be used by view-upcomingevent.client.view.html
+         * */
         $scope.fillFields = function () {
             $scope.changeCat();
             if (vm.upcomingevent.eventDuration) {
+                // Create event duration object.
                 $scope.eventDuration.startDate.value = new Date($filter('date')(vm.upcomingevent.eventDuration.startDate, "yyyy-MM-dd HH:mm"));
                 $scope.eventDuration.endDate.value = new Date($filter('date')(vm.upcomingevent.eventDuration.endDate, "yyyy-MM-dd HH:mm"));
+                // Create string object to display Dates.
+                $scope.startDateString = ($filter('date')(new Date(vm.upcomingevent.eventDuration.startDate), "yyyy-MM-dd HH:mm")).toString();
+                $scope.endDateString = ($filter('date')(new Date(vm.upcomingevent.eventDuration.endDate), "yyyy-MM-dd HH:mm")).toString();
             }
             /* Clear the marker container */
             $scope.markers = [];
@@ -80,19 +83,24 @@
                 });
             }
             if (vm.upcomingevent.imageURLList) {
-                // console.log(vm.upcomingevent.imageURLList);
+                // For each image url, save it to the temporal list.
                 for (var i = 0; i < vm.upcomingevent.imageURLList.length; i++) {
                     if (vm.upcomingevent.imageURLList[i]) {
                         $scope.imageURLList.push(vm.upcomingevent.imageURLList[i]);
                     } else {
+                        // If there is not a valid image, put the default image according to the event category.
                         $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/placeholders/' + $scope.previewImg + '.jpg');
                     }
                 }
             } else {
+                // Save the default image url.
                 $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/placeholders/' + $scope.previewImg + '.jpg');
             }
         };
-        $scope.changeCat = function(){//switch function called each time new category is picked to update placeholder
+        /**
+        *Switch according to the event category.
+        */
+        $scope.changeCat = function(){
             switch (vm.upcomingevent.category){
                 case "Concerts":
                     $scope.previewImg = 'concerts';
@@ -123,9 +131,9 @@
                     break;
             }
         };
-        //**
-        //function to change the category color of the individual event page top
-        //**
+        /**
+        * Function to change the category color of the individual event page top.
+        */
         $scope.changeBackground = function(){
             var color;
             switch(vm.upcomingevent.category ){
@@ -160,7 +168,7 @@
             return color;
         };
 
-        /*
+        /**
         * Upload upcoming event images.
         */
         // Create file uploader instance
@@ -179,10 +187,7 @@
         });
 
         // Called after the user selected a new picture file
-        //creates uploader.queue which is used for S3
         $scope.uploader.onAfterAddingFile = function (fileItem) {
-            // console.log("onAfterAddingFile");
-            // console.log(fileItem);
             if ($window.FileReader) {
                 var fileReader = new FileReader();
                 fileReader.readAsDataURL(fileItem._file);
@@ -194,8 +199,6 @@
                             $scope.imageURLList.splice($scope.imageURLList.indexOf(fileReaderEvent.target.result), 1);
                         }
                         $scope.imageURLList.push(fileReaderEvent.target.result);
-                        // console.log($scope.imageURLList);
-
                         // Upload the new selected picture.
                         // $scope.uploadEventPicture();
                     }, 0);
@@ -204,10 +207,7 @@
         };
 
         // Called after the user has successfully uploaded a new picture
-        //unused function after AWS was added. used if server uploads are desired
         $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            // console.log("onSuccessItem");
-
             // Show success message
             $scope.success = true;
 
@@ -234,8 +234,6 @@
             vm.upcomingevent.imageURLList.push(response.file.path);
             $scope.imageURLList.push(response.file.path);
 
-            // console.log($scope.uploader.queue);
-
             $scope.imageURLList.push('modules/upcomingevents/client/img/eventImages/default.png' + response.file.filename);
             // Clear upload buttons
             $scope.cancelUpload();
@@ -249,7 +247,6 @@
             // Show error message
             $scope.error = response.message;
         };
-
 
         // Cancel the upload process
         $scope.cancelUpload = function () {
@@ -273,7 +270,7 @@
                     type: Date,
                 }
             };
-
+            // Save upcoming event starting date.
             if ($scope.eventDuration.startDate.value) {
                 vm.upcomingevent.eventDuration.startDate = $scope.eventDuration.startDate.value;
             }
@@ -305,7 +302,8 @@
                                 $scope.$broadcast('show-errors-check-validity', 'vm.form.upcomingeventForm');
                                 return false;
                             }
-                            $scope.s3upload(); //handles create update logic
+                            // TODO: move create/update logic to service
+                            $scope.s3upload();
                         }
                     });
                 }
@@ -335,7 +333,7 @@
                 vm.upcomingevent.likedby.push($scope.user.username);
                 vm.upcomingevent.$update(successCallback, errorCallback);
             }
-            else if ($scope.user && hasLiked) { //unlike functionality
+            else if ($scope.user && hasLiked) {
                 vm.upcomingevent.likes--;
                 vm.upcomingevent.likedby = vm.upcomingevent.likedby.filter(function () {
                     return !$scope.user.username
@@ -354,58 +352,58 @@
             }
 
         }
-        $scope.s3upload = function(){//TODO: remove old pictures from AWS
-            if(!$scope.uploader.queue.length){ //logic if no piture has been uploaded
+        $scope.s3upload = function(){
+            if(!$scope.uploader.queue.length){
                 if (vm.upcomingevent._id) {
-                        vm.upcomingevent.$update(successCallback, errorCallback);
-                    } 
-                    else {//save placeholder as event image
-                        var newURL = [`modules/upcomingevents/client/img/eventImages/placeholders/${$scope.previewImg}.jpg`];
-                        vm.upcomingevent.imageURLList = newURL;
-                        vm.upcomingevent.$save(successCallback, errorCallback);
+                    vm.upcomingevent.$update(successCallback, errorCallback);
+                }
+                else {
+                    var newURL = [`modules/upcomingevents/client/img/eventImages/placeholders/${$scope.previewImg}.jpg`];
+                    vm.upcomingevent.imageURLList = newURL;
+                    vm.upcomingevent.$save(successCallback, errorCallback);
                 }
                 return;}
-            var myImgs = []; //create array to hold uploads           
+            var myImgs = [];
             for(var i = 0; i < $scope.uploader.queue.length; i++){
                 var temp = $scope.uploader.queue[i]._file;
                 (function(temp) {
-                var check = Pictures.getSig({filename: temp.name, filetype: temp.type}).$promise.then(function(data){
-                     myImgs.push(data.url);
-                const xhr = new XMLHttpRequest();
-                xhr.open('PUT', data.signedRequest);//async send to AWS
-                xhr.onreadystatechange = () => {
-                  if(xhr.readyState === 4){
-                    if(xhr.status === 200){
-                    }
-                    else{
-                      alert('Could not upload file.');
-                    }
-                  }
-                };
-                xhr.send(temp);
+                    var check = Pictures.getSig({filename: temp.name, filetype: temp.type}).$promise.then(function(data){
+                        myImgs.push(data.url);
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('PUT', data.signedRequest);
+                        xhr.onreadystatechange = () => {
+                            if(xhr.readyState === 4){
+                                if(xhr.status === 200){
+                                }
+                                else{
+                                    alert('Could not upload file.');
+                                }
+                            }
+                        };
+                        xhr.send(temp);
 
-                if(myImgs.length === $scope.uploader.queue.length){//update if event exists, create if new
-                    vm.upcomingevent.imageURLList = myImgs;
-                    if (vm.upcomingevent._id) {
-                        vm.upcomingevent.$update(successCallback, errorCallback);
-                    } 
-                    else {
-                        vm.upcomingevent.$save(successCallback, errorCallback);
-                    }
-                }
+                        if(myImgs.length === $scope.uploader.queue.length){
+                            vm.upcomingevent.imageURLList = myImgs;
+                            if (vm.upcomingevent._id) {
+                                vm.upcomingevent.$update(successCallback, errorCallback);
+                            }
+                            else {
+                                vm.upcomingevent.$save(successCallback, errorCallback);
+                            }
+                        }
 
-            function successCallback(res) {//callbacks for uploading
-                $state.go('upcomingevents.view', {
-                    upcomingeventId: res._id
-                });
-            }
+                        function successCallback(res) {
+                            $state.go('upcomingevents.view', {
+                                upcomingeventId: res._id
+                            });
+                        }
 
-            function errorCallback(res) {
-                vm.error = res.data.message;
-            }
-                });
+                        function errorCallback(res) {
+                            vm.error = res.data.message;
+                        }
+                    });
 
-            })(temp);//save temp in closure so that correct image is uploaded when dealing with promise in loop
+                })(temp);
             }
             function successCallback(res) {
                 $state.go('upcomingevents.view', {

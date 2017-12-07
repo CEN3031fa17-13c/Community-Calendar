@@ -20,6 +20,6 @@ module.exports = function(app) {
   // Finish by binding the Contact middleware
   app.param('contactId', contacts.contactByID);
 
-  //guangyu: route for contact email
+  //Guangyu: route for contact email
   app.route('/api/auth/contacts').post(contacts.sendMail);
 };
