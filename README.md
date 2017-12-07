@@ -13,7 +13,6 @@ This UF project uses ng-file-upload, angular-messages, ng-youtube-embed, ngmap, 
 #How to update database and server connections:
 
 1. To change the mongo db uri for development, go to config/env/development.js and change the link
-2. TODO: Add heroku uri instructions
 
 # Functionality
 1. Visitors can view the event calendar, individual event details, and contact admins.
