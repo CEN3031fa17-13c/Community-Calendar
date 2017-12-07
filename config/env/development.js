@@ -1,6 +1,10 @@
 'use strict';
 
 var defaultEnvConfig = require('./default');
+/**
+ * process.env.COMPANY_MAIL: environment variable to set the company email.
+ */
+process.env.COMPANY_MAIL = 'my-company-email@email.com';
 
 module.exports = {
     db: {
@@ -58,6 +62,20 @@ module.exports = {
         callbackURL: '/api/auth/paypal/callback',
         sandbox: true
     },
+     /**
+     * mailer example: Configure this with the company email credentials:
+     *
+         mailer: {
+            from: process.env.MAILER_FROM || 'my-company-email@email.com',
+            options: {
+                service: process.env.MAILER_SERVICE_PROVIDER || '@email.com',
+                auth: {
+                    user: process.env.MAILER_EMAIL_ID || 'my-user-name',
+                    pass: process.env.MAILER_PASSWORD || 'my-password'
+                }
+            }
+        },
+     */
     mailer: {
         from: process.env.MAILER_FROM,
         options: {
