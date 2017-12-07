@@ -1,11 +1,14 @@
-<!--guangyu: contact view page-->
 <section ng-controller="ContactsController">
   <div class="container-fluid">
+
+    <!--Heading of page-->
     <div class="row">
       <div class=" col-lg-12 text-center">
         <h1 class="heading-page">Contact Community Calendar</h1>
       </div>
     </div>
+
+    <!--Start of the middle container that holds the contact form-->
     <div class="row about-middle">
       <div class="col-lg-12 text-center">
         <div class="jumbotron">
@@ -15,12 +18,16 @@
                 below</h4>
             </div>
           </div>
+
+          <!--Start of Contact form-->
           <form class="contact-jumbotron row" name="userForm" ng-submit="contactform(userForm.$valid)" novalidate
                 autocomplete="off">
             <div class="col-md-offset-3 col-md-6">
               <div class="form-group" show-errors>
                 <div class="row">
                   <div class="col-md-12">
+
+                    <!--Input form to send the email form. Here we take in the name of the user-->
                     <input type="text" id="firstName" name="firstName" class="contact-form-bar"
                            ng-model="credentials.firstName" placeholder="Your Name" required><br>
                     <div ng-messages="userForm.firstName.$error" role="alert">
@@ -32,6 +39,8 @@
               <div class="form-group" show-errors>
                 <div class="row">
                   <div class="col-md-12">
+
+                    <!--Here we take in the email of the user -->
                     <input type="email" id="email" name="email" class="contact-form-bar" ng-model="credentials.email"
                            placeholder="Email" required><br>
                     <div ng-messages="userForm.email.$error" role="alert">
@@ -50,8 +59,9 @@
               <div class="form-group" show-errors>
                 <div class="row">
                   <div class="col-md-12">
-                <textarea rows="7" class="contact-form-message" id="message" name="message" class="form-control"
-                          ng-model="credentials.message" required>
+                    <!--Here we take in the message of the user-->
+                    <textarea rows="7" class="contact-form-message" id="message" name="message" class="form-control"
+                              ng-model="credentials.message" required>
                  </textarea><br>
                     <div ng-messages="userForm.message.$error" role="alert">
                       <p class="help-block error-text" ng-message="required">Message is required.</p>
@@ -61,6 +71,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
+                  <!--The submit button goes here-->
                   <input class="contact-submit-button" type="submit" value="Submit">
                 </div>
               </div>
@@ -74,4 +85,3 @@
     </div>
   </div>
 </section>
-<!-- end of contact view page-->
