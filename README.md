@@ -22,6 +22,6 @@ This UF project uses ng-file-upload, angular-messages, ng-youtube-embed, ngmap, 
 4. Admins can approve and decline events, as well as edit and delete users.
 
 # Screenshots
-![Alt text](/screenshots/home_page.jpg?raw=true "Home Page")
-![Alt text](/screenshots/upcoming_events.jpg?raw=true "Upcoming Events")
-![Alt text](/screenshots/eventdetail1.jpg?raw=true "Event Details")
+![Alt text](/screenshots/cal1?raw=true "Home Page 1")
+![Alt text](/screenshots/cal2?raw=true "Home Page 2")
+![Alt text](/screenshots/cal3?raw=true "About Page")
