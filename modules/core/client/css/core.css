@@ -770,7 +770,15 @@ input:-webkit-autofill {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
 }
-
+.carousel-picture-description{
+  /*max-width: 550px;*/
+  /*min-width: 300px;*/
+  height:300px;
+  margin-top: 20px;
+  /*margin: auto;*/
+  /*display: block;*/
+  object-fit:contain;
+}
 .event-picture-description{
   /*max-width: 550px;*/
   /*min-width: 300px;*/
@@ -779,6 +787,16 @@ input:-webkit-autofill {
   /*margin: auto;*/
   /*display: block;*/
   object-fit:fill;
+}
+
+.carousel-picture-description{
+  /*max-width: 550px;*/
+  /*min-width: 300px;*/
+  height:300px;
+  margin-top: 20px;
+  /*margin: auto;*/
+  /*display: block;*/
+  object-fit:contain;
 }
 
 .like-event {

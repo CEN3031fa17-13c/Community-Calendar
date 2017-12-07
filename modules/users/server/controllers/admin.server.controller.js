@@ -6,6 +6,8 @@
 var path = require('path'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    config = require(path.resolve('./config/config')),
+    nodemailer = require('nodemailer'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -101,20 +103,13 @@ exports.userByID = function (req, res, next, id) {
 /**
  * Original from Guangyu: Send confirmation email.
  */
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'communityCalendar2017@gmail.com',
-        pass: 'Team13C!'
-    }
-});
+var transporter = nodemailer.createTransport(config.mailer.options);
 
 exports.sendMail = function (req, res) {
     var data = req.body;
 
     transporter.sendMail({
-        from: 'communityCalendar2017@gmail.com',
+        from: process.env.COMPANY_MAIL,
         to: data.contactEmail,
         subject: 'The request from ' + data.contactName + ' had been processed.',
         text: data.contactMsg

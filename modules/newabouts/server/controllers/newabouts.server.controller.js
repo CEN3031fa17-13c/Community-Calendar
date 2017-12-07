@@ -16,7 +16,7 @@ var path = require('path'),
 /**
  * Upload About image
  */
- //Unused in favor of AWS
+ // Unused in favor of AWS
 exports.uploadImage = function (req, res) {
     var message = null;
 
@@ -50,6 +50,7 @@ exports.create = function (req, res) {
     var newabout = new Newabout(req.body);
     newabout.user = req.user;
 
+    // Save the image url.
     newabout.imageURL = config.uploads.aboutUpload.dest + newabout.filename;
 
     newabout.save(function (err) {
@@ -82,8 +83,7 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
     var newabout = req.newabout;
-    newabout = _.extend(newabout, req.body);    //create object based on request params
-
+    newabout = _.extend(newabout, req.body);    // Create object based on request params
 
     newabout.save(function (err) {
         if (err) {

@@ -1,11 +1,16 @@
 // event-spec-login.js
 describe('event creation e2e tests', function() {
 
-    var eventName="Protractor Event 2"
+  var testUsr = {
+    username:'testusr',
+    password:'superultramegachicken'
+  }
+
+    var eventName="Protractor Event"
 
     beforeAll(function() { //sign up
       browser.get('http://localhost:3000');
-      browser.sleep(5000);
+      browser.sleep(7000);
       element(by.css('[ng-click="$dismiss()"]')).click();
   	});
 
@@ -15,8 +20,8 @@ describe('event creation e2e tests', function() {
   	});
 
   	it('should be able to login', function() {
-      element(by.id('username')).sendKeys("curtis");
-      element(by.id('password')).sendKeys("superultramegachicken");
+      element(by.id('username')).sendKeys(testUsr.username);
+      element(by.id('password')).sendKeys(testUsr.password);
       element(by.buttonText('Login')).click();
       expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/");
     });
@@ -30,10 +35,9 @@ describe('event creation e2e tests', function() {
       element(by.id('name')).sendKeys(eventName);
       element(by.id('organization')).sendKeys("Protractor Organization");
       element(by.id('location')).sendKeys("Gainesville");
-      element(by.css('[value="White Tie"]')).click(); //dropdown menu (entries keyed by 'value')
       element(by.css('[value="Parties"]')).click(); //dropdown menu (entries keyed by 'value')
+      element(by.css('[value="White Tie"]')).click(); //dropdown menu (entries keyed by 'value')
       element(by.id('description')).sendKeys("Description"); //type text
-      element(by.id('fileuploader')).sendKeys("C:/Users/curti/OneDrive/Java/Pictures");
 
       element(by.className('contact-submit-button ng-binding')).click();
       browser.sleep(5000);

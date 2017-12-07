@@ -25,8 +25,8 @@
         eventRender: $scope.eventRender
       }
     };
-    
-    // filtering feature is following with pushes event funtion inside of the filter function
+
+      /*************************************************************************/
 
  function filter(temp) {
      var vals = [];
@@ -65,8 +65,6 @@
            element.attr({'tooltip': content,
                          'tooltip-append-to-body': true});
            $compile(element)($scope);
-
-           // when pushes event, add color to the bar background
          if (temp.category === 'Concerts')
              temp.color = '#8860D0';
          else if (temp.category === 'Parties')
@@ -89,8 +87,7 @@
          return filter(temp); // Only show if appropriate checkbox is checked
      },
 
-     //function that pushes event to the full calendar
- events : $scope.myevents = function(start, end, timezone, callback) {
+ events : $scope.myevents = function(start, end, timezone, callback) {  
      UpcomingeventsService.query().$promise // call service to get the data for the calendar
          .then(function(data) {
              var events = [];
@@ -98,7 +95,9 @@
                  var temp = {};
                  temp.title = data[i].name;
                  temp.start = data[i].eventDuration.startDate;
-                 temp.end = data [i]. eventDuration.endDate;
+                 temp.start = new Date(temp.start);
+                 temp.end = data[i].eventDuration.endDate;
+                 temp.end = new Date(temp.end);
                  temp.category = data [i].category;
                  temp.eventID = data[i]._id;
                  temp.org = data[i].organization;
@@ -151,7 +150,7 @@
       //////Fill with future events if unable to fill from current week//////////
       if ($scope.popularEvents.length < 3){
         for (var i = 0; i<data.length; i++){
-          if ($filter('date')(data[i].eventDuration.endDate, "yyyy-MM-dd") >= $filter('date')(now, "yyyy-MM-dd")){
+          if ($filter('date')(data[i].eventDuration.startDate, "yyyy-MM-dd") > $filter('date')(weekFromToday, "yyyy-MM-dd")){
             $scope.popularEvents.push(data[i]);
           }
           if ($scope.popularEvents.length >= 3)break;

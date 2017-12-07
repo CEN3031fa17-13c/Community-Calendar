@@ -9,9 +9,9 @@
 
     function SubscriptionsListController(SubscriptionsService, Authentication) {
         var vm = this;
-
+        // Get list of subscribers.
         vm.subscriptions = SubscriptionsService.query();
-
+        // Get admin authentication.
         vm.authentication = Authentication;
     }
 }());
