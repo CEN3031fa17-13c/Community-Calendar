@@ -20,7 +20,7 @@
           <img ng-if="imageURLList.length == 1" class="event-picture-description img-responsive"
                ng-src="{{imageURLList[0]}}">
           <!-- Start Carousel -->
-          <div style="box-sizing: border-box; height: 300px;">
+          <div style="box-sizing: border-box; height: 300px;" ng-show="imageURLList.length > 1">
             <carousel interval="myInterval" ng-if="imageURLList.length > 1"
                       class="carousel-picture-description img-responsive">
               <slide ng-repeat="slideURL in imageURLList" active="slide.active">
