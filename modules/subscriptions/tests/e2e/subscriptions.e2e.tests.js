@@ -33,7 +33,7 @@ describe('event creation e2e tests', function() {
     	element(by.css('[class="dropdown-toggle ng-binding ng-scope"]')).click();
     	element(by.css('[href="/admin/subscriptions"]')).click();
     	var listing = element.all(by.repeater('subscription in vm.subscriptions').column('subscription.email'));
-    	expect(listing.last().getText()).toBe(subscription.email);  	
+    	expect(listing.last().getText()).toBe(subscription.email);
     });
 
 
